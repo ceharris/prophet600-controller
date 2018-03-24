@@ -12,34 +12,34 @@ it("sets Poly Mod Source Filter Env", () => {
   const stateBefore = polymod(undefined, {});
   deepFreeze(stateBefore);
 
-  const stateAfter = { ...stateBefore, sourceFilterEnv: 255};
   expect(polymod(stateBefore, polymodSourceSetFilterEnv(255)))
-      .toEqual(stateAfter);
+      .toEqual({ ...stateBefore, sourceFilterEnv: 255 });
+  expect(polymod(stateBefore, polymodSourceSetFilterEnv(0)))
+      .toEqual({ ...stateBefore, sourceFilterEnv: 0 });
 });
 
 it("sets Poly Mod Source Osc B", () => {
   const stateBefore = polymod(undefined, {});
   deepFreeze(stateBefore);
 
-  const stateAfter = { ...stateBefore, sourceOscB: 255};
   expect(polymod(stateBefore, polymodSourceSetOscB(255)))
-      .toEqual(stateAfter);
+      .toEqual({ ...stateBefore, sourceOscB: 255 });
+  expect(polymod(stateBefore, polymodSourceSetOscB(0)))
+      .toEqual({ ...stateBefore, sourceOscB: 0 });
 });
 
 it("toggles Poly Mod Destination Freq A", () => {
   const stateBefore = polymod(undefined, {});
   deepFreeze(stateBefore);
 
-  const stateAfter = { ...stateBefore, destinationFreqA: !stateBefore.destinationFreqA };
   expect(polymod(stateBefore, polymodDestToggleFreqA()))
-      .toEqual(stateAfter);
+      .toEqual({ ...stateBefore, destinationFreqA: !stateBefore.destinationFreqA });
 });
 
 it("toggles Poly Mod Destination Filter", () => {
   const stateBefore = polymod(undefined, {});
   deepFreeze(stateBefore);
 
-  const stateAfter = { ...stateBefore, destinationFilter: !stateBefore.destinationFilter };
   expect(polymod(stateBefore, polymodDestToggleFilter()))
-      .toEqual(stateAfter);
+      .toEqual({ ...stateBefore, destinationFilter: !stateBefore.destinationFilter });
 });

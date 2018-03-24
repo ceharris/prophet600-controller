@@ -16,7 +16,10 @@ export const LFO_DEST_TOGGLE_FILTER = "LFO_DEST_TOGGLE_FILTER";
 
 export const VIBRATO_SET_FREQ = "VIBRATO_SET_FREQ";
 export const VIBRATO_SET_DEPTH = "VIBRATO_SET_DEPTH";
-export const OSC_SET_STEP = "OSC_SET_STEP";
+
+export const VOICES_SET_FREQ_STEP = "VOICES_SET_FREQ_STEP";
+export const VOICES_TOGGLE_UNISON = "VOICES_TOGGLE_UNISON";
+export const VOICES_SET_UNISON_DETUNE = "VOICES_SET_UNISON_DETUNE";
 
 export const OSC_A_SET_FREQ = "OSC_A_SET_FREQ";
 export const OSC_A_TOGGLE_SYNC = "OSC_A_TOGGLE_SYNC";
@@ -37,7 +40,7 @@ export const MIXER_SET_OSC_B_LEVEL = "MIXER_SET_OSC_B_LEVEL";
 
 export const VCF_SET_CUTOFF = "VCF_SET_CUTOFF";
 export const VCF_SET_RESONANCE = "VCF_SET_RESONANCE";
-export const VCF_SET_ENVELOPE_DEPTH = "VCF_SET_ENVELOPE_DEPTH";
+export const VCF_SET_ENVELOPE_AMOUNT = "VCF_SET_ENVELOPE_AMOUNT";
 export const VCF_SET_KEYBOARD_TRACK = "VCF_SET_KEYBOARD_TRACK";
 export const VCF_ENVELOPE_SET_CURVE = "VCF_ENVELOPE_SET_CURVE";
 export const VCF_ENVELOPE_SET_RATE = "VCF_ENVELOPE_SET_RATE";
@@ -49,12 +52,9 @@ export const VCF_ENVELOPE_SET_RELEASE = "VCF_ENVELOPE_SET_RELEASE";
 export const VCA_ENVELOPE_SET_CURVE = "VCA_ENVELOPE_SET_CURVE";
 export const VCA_ENVELOPE_SET_RATE = "VCA_ENVELOPE_SET_RATE";
 export const VCA_ENVELOPE_SET_ATTACK = "VCA_ENVELOPE_SET_ATTACK";
-export const VCA_ENVELOPE_SET_DELAY = "VCA_ENVELOPE_SET_DELAY";
+export const VCA_ENVELOPE_SET_DECAY = "VCA_ENVELOPE_SET_DECAY";
 export const VCA_ENVELOPE_SET_SUSTAIN = "VCA_ENVELOPE_SET_SUSTAIN";
 export const VCA_ENVELOPE_SET_RELEASE = "VCA_ENVELOPE_SET_RELEASE";
-
-export const UNISON_TOGGLE_TRACK = "UNISON_TOGGLE_TRACK";
-export const UNISON_SET_DETUNE = "UNISON_SET_DETUNE";
 
 export const BEND_WHEEL_SET_TARGET = "BEND_WHEEL_SET_TARGET";
 export const BEND_WHEEL_SET_RANGE = "BEND_WHEEL_SET_RANGE";
@@ -63,3 +63,52 @@ export const MOD_WHEEL_SET_RANGE = "MOD_WHEEL_SET_RANGE";
 
 export const KEYBOARD_SET_GLIDE = "KEYBOARD_SET_GLIDE";
 export const KEYBOARD_SET_KEY_ASSIGN = "KEYBOARD_SET_KEY_ASSIGN";
+
+export const LFO_RANGE_LOW = "low";
+export const LFO_RANGE_HIGH = "high";
+
+export const LFO_SHAPE_TRIANGLE = "triangle";
+export const LFO_SHAPE_SINE = "sine";
+export const LFO_SHAPE_SAW = "saw";
+export const LFO_SHAPE_PULSE = "pulse";
+export const LFO_SHAPE_RANDOM = "random";
+export const LFO_SHAPE_NOISE = "noise";
+
+export const LFO_DEST_TARGET_AB = "AB";
+export const LFO_DEST_TARGET_A = "A";
+export const LFO_DEST_TARGET_B = "B";
+
+export const FREQ_STEP_FREE = "free";
+export const FREQ_STEP_SEMITONE = "semitone";
+export const FREQ_STEP_OCTAVE = "octave";
+
+export const ENVELOPE_CURVE_LINEAR = "linear";
+export const ENVELOPE_CURVE_EXPONENTIAL = "exponential";
+
+export const ENVELOPE_RATE_SLOW = "slow";
+export const ENVELOPE_RATE_FAST = "fast";
+
+export const KEYBOARD_TRACK_FULL = "full";
+export const KEYBOARD_TRACK_HALF = "half";
+export const KEYBOARD_TRACK_OFF = "off";
+
+export const KEY_ASSIGN_LAST = "last";
+export const KEY_ASSIGN_LOW = "low";
+export const KEY_ASSIGN_HIGH = "high";
+
+export const BEND_WHEEL_TARGET_OFF = "off";
+export const BEND_WHEEL_TARGET_FREQ = "freq";
+export const BEND_WHEEL_TARGET_FILTER = "filter";
+export const BEND_WHEEL_TARGET_VOLUME = "volume";
+
+export const MOD_WHEEL_TARGET_LFO = "lfo";
+export const MOD_WHEEL_TARGET_VIBRATO = "vibrato";
+
+export const MOD_WHEEL_RANGE_MIN = "min";
+export const MOD_WHEEL_RANGE_LOW = "low";
+export const MOD_WHEEL_RANGE_HIGH = "high";
+export const MOD_WHEEL_RANGE_MAX = "max";
+
+
+
+

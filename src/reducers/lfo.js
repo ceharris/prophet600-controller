@@ -12,15 +12,18 @@ import {
   LFO_DEST_TOGGLE_FREQ,
   LFO_DEST_TOGGLE_PW,
   LFO_DEST_TOGGLE_FILTER,
+  LFO_RANGE_LOW,
+  LFO_SHAPE_TRIANGLE,
+  LFO_DEST_TARGET_AB,
 } from "../constants";
 
 const defaultState = {
   frequency: 0,
-  range: "low",
-  shape: "triangle",
+  range: LFO_RANGE_LOW,
+  shape: LFO_SHAPE_TRIANGLE,
   depth: 0,
   delay: 0,
-  destinationTarget: "AB",
+  destinationTarget: LFO_DEST_TARGET_AB,
   destinationFreq: false,
   destinationPW: false,
   destinationFilter: false,
