@@ -7,7 +7,7 @@ import ShapePulse from "./ShapePulse";
 import Fine from "./Fine";
 
 export default () => (
-  <div className="lfo-panel control-group">
+  <div className="oscillator-panel control-group">
     <h1>Oscillator B</h1>
     <Frequency/>
     <Fine/>

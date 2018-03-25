@@ -7,7 +7,7 @@ import ShapeSawtooth from "./ShapeSawtooth";
 import ShapePulse from "./ShapePulse";
 
 export default () => (
-  <div className="lfo-panel control-group">
+  <div className="oscillator-panel control-group">
     <h1>Oscillator A</h1>
     <Frequency/>
     <Sync/>

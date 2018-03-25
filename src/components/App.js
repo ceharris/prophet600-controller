@@ -10,20 +10,46 @@ import Filter from "./Filter/Panel";
 import Amplifier from "./Amplifier/Panel";
 import Performance from "./Performance/Panel";
 
+import { Grid, Row, Col } from "react-bootstrap";
+
 export default ({ store }) => {
   return (
     <Provider store={store}>
-      <div>
-        <Voices/>
-        <PolyMod/>
-        <LFO/>
-        <OscillatorA/>
-        <OscillatorB/>
-        <Mixer/>
-        <Filter/>
-        <Amplifier/>
-        <Performance/>
-      </div>
+      <Grid fluid={true}>
+        <Row>
+          <Col sm={3}>
+            <Voices/>
+          </Col>
+          <Col sm={3}>
+            <OscillatorA/>
+          </Col>
+          <Col sm={3}>
+            <Filter/>
+          </Col>
+        </Row>
+        <Row>
+          <Col sm={3}>
+            <PolyMod/>
+          </Col>
+          <Col sm={3}>
+            <OscillatorB/>
+          </Col>
+          <Col sm={3}>
+            <Amplifier/>
+          </Col>
+        </Row>
+        <Row>
+          <Col sm={3}>
+            <LFO/>
+          </Col>
+          <Col sm={3}>
+            <Mixer/>
+          </Col>
+          <Col sm={3}>
+            <Performance/>
+          </Col>
+        </Row>
+      </Grid>
     </Provider>
   );
 };
