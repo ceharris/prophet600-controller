@@ -16,9 +16,9 @@ export default ({ store }) => {
   return (
     <Provider store={store}>
       <div>
+        <Voices/>
         <PolyMod/>
         <LFO/>
-        <Voices/>
         <OscillatorA/>
         <OscillatorB/>
         <Mixer/>
