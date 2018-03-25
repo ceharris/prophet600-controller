@@ -19,7 +19,7 @@ import {
  * @param {r} level frequency level (0-255)
  * @returns redux action
  */
-export const lfoSetFreq = (level) => ({
+export const lfoSetFrequency = (level) => ({
   type: LFO_SET_FREQ,
   payload: level,
 });

@@ -2,7 +2,7 @@ import oscillatorA from './oscillatorA';
 import deepFreeze from 'deep-freeze';
 
 import { 
-  oscASetFreq, 
+  oscASetFrequency, 
   oscAToggleSync,
   oscAShapeToggleSawtooth,
   oscAShapeToggleTriangle,
@@ -15,9 +15,9 @@ it('sets Osc A frequency', () => {
   const stateBefore = oscillatorA();
   deepFreeze(stateBefore);
 
-  expect(oscillatorA(stateBefore, oscASetFreq(255)))
+  expect(oscillatorA(stateBefore, oscASetFrequency(255)))
       .toEqual({ ...stateBefore, frequency: 255 });
-  expect(oscillatorA(stateBefore, oscASetFreq(0)))
+  expect(oscillatorA(stateBefore, oscASetFrequency(0)))
       .toEqual({ ...stateBefore, frequency: 0 });
 });
 

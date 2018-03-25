@@ -24,7 +24,7 @@ export const polymodSourceSetFilterEnv = (level) => ({
  * @param {r} level source Osc B level (0-255)
  * @returns redux action
  */
-export const polymodSourceSetOscB = (level) => ({
+export const polymodSourceSetOscillatorB = (level) => ({
   type: POLYMOD_SOURCE_SET_OSC_B,
   payload: level,
 });
@@ -33,7 +33,7 @@ export const polymodSourceSetOscB = (level) => ({
  * Creates an action to toggle the POLY-MOD Destination Freq A control.
  * @returns redux action
  */
-export const polymodDestToggleFreqA = () => ({
+export const polymodDestToggleFrequencyA = () => ({
   type: POLYMOD_DEST_TOGGLE_FREQ_A,
 });
 

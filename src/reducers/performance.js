@@ -9,7 +9,7 @@ import {
   MOD_WHEEL_SET_TARGET,
   KEYBOARD_SET_GLIDE,
   KEYBOARD_SET_KEY_ASSIGN,
-  BEND_WHEEL_TARGET_FREQ,
+  BEND_WHEEL_TARGET_PITCH,
   MOD_WHEEL_RANGE_MIN,
   MOD_WHEEL_TARGET_LFO,
   KEY_ASSIGN_LAST,
@@ -17,7 +17,7 @@ import {
 
 const defaultState = {
   bendWheelRange: 0,
-  bendWheelTarget: BEND_WHEEL_TARGET_FREQ,
+  bendWheelTarget: BEND_WHEEL_TARGET_PITCH,
   modWheelRange: MOD_WHEEL_RANGE_MIN,
   modWheelTarget: MOD_WHEEL_TARGET_LFO,
   keyboardGlide: 0,

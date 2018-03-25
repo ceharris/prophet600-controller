@@ -2,7 +2,7 @@ import oscillatorB from './oscillatorB';
 import deepFreeze from 'deep-freeze';
 
 import { 
-  oscBSetFreq, 
+  oscBSetFrequency, 
   oscBSetFine,
   oscBShapeToggleSawtooth,
   oscBShapeToggleTriangle,
@@ -15,9 +15,9 @@ it('sets Osc B frequency', () => {
   const stateBefore = oscillatorB();
   deepFreeze(stateBefore);
 
-  expect(oscillatorB(stateBefore, oscBSetFreq(255)))
+  expect(oscillatorB(stateBefore, oscBSetFrequency(255)))
       .toEqual({ ...stateBefore, frequency: 255 });
-  expect(oscillatorB(stateBefore, oscBSetFreq(0)))
+  expect(oscillatorB(stateBefore, oscBSetFrequency(0)))
       .toEqual({ ...stateBefore, frequency: 0 });
 });
 

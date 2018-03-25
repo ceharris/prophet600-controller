@@ -11,7 +11,7 @@ import {
 } from "../constants";
 
 import {
-  lfoSetFreq,
+  lfoSetFrequency,
   lfoSetRange,
   lfoSetShape,
   lfoSetDepth,
@@ -26,9 +26,9 @@ it("sets LFO frequency", () => {
   const stateBefore = lfo(undefined, {});
   deepFreeze(stateBefore);
 
-  expect(lfo(stateBefore, lfoSetFreq(255)))
+  expect(lfo(stateBefore, lfoSetFrequency(255)))
       .toEqual({...stateBefore, frequency: 255});
-  expect(lfo(stateBefore, lfoSetFreq(0)))
+  expect(lfo(stateBefore, lfoSetFrequency(0)))
       .toEqual({...stateBefore, frequency: 0});
 
 });

@@ -3,8 +3,8 @@ import deepFreeze from "deep-freeze";
 
 import {
   polymodSourceSetFilterEnv,
-  polymodSourceSetOscB,
-  polymodDestToggleFreqA,
+  polymodSourceSetOscillatorB,
+  polymodDestToggleFrequencyA,
   polymodDestToggleFilter,
 } from "../actions/polymod";
 
@@ -22,9 +22,9 @@ it("sets Poly Mod Source Osc B", () => {
   const stateBefore = polymod(undefined, {});
   deepFreeze(stateBefore);
 
-  expect(polymod(stateBefore, polymodSourceSetOscB(255)))
+  expect(polymod(stateBefore, polymodSourceSetOscillatorB(255)))
       .toEqual({ ...stateBefore, sourceOscB: 255 });
-  expect(polymod(stateBefore, polymodSourceSetOscB(0)))
+  expect(polymod(stateBefore, polymodSourceSetOscillatorB(0)))
       .toEqual({ ...stateBefore, sourceOscB: 0 });
 });
 
@@ -32,7 +32,7 @@ it("toggles Poly Mod Destination Freq A", () => {
   const stateBefore = polymod(undefined, {});
   deepFreeze(stateBefore);
 
-  expect(polymod(stateBefore, polymodDestToggleFreqA()))
+  expect(polymod(stateBefore, polymodDestToggleFrequencyA()))
       .toEqual({ ...stateBefore, destinationFreqA: !stateBefore.destinationFreqA });
 });
 

@@ -16,7 +16,7 @@ import {
  * @param {r} level frequency control level (0-255)
  * @returns redux action
  */
-export const oscBSetFreq = (level) => ({
+export const oscBSetFrequency = (level) => ({
   type: OSC_B_SET_FREQ,
   payload: level,
 });

@@ -10,12 +10,12 @@ import {
   VCA_ENVELOPE_SET_SUSTAIN,
   VCA_ENVELOPE_SET_RELEASE,
   ENVELOPE_CURVE_LINEAR,
-  ENVELOPE_CURVE_FAST,
+  ENVELOPE_RATE_FAST,
 } from "../constants";
 
 const defaultState = {
   curve: ENVELOPE_CURVE_LINEAR,
-  rate: ENVELOPE_CURVE_FAST,
+  rate: ENVELOPE_RATE_FAST,
   attack: 0,
   decay: 0,
   sustain: 0,
