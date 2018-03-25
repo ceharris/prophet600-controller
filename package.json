@@ -2,14 +2,7 @@
   "name": "prophet600-programmer",
   "version": "0.1.0",
   "private": true,
-  "dependencies": {
-    "react": "^16.2.0",
-    "react-bootstrap": "^0.32.1",
-    "react-dom": "^16.2.0",
-    "react-redux": "5.0.7",
-    "react-scripts": "1.1.1",
-    "redux": "^3.7.2"
-  },
+  "dependencies": {},
   "scripts": {
     "build-css": "less-watch-compiler --run-once src/assets/ src/assets/ styles.less",
     "watch-css": "npm run build-css && less-watch-compiler src/assets/ src/assets/ styles.less",
@@ -20,6 +13,15 @@
     "eject": "react-scripts eject"
   },
   "devDependencies": {
-    "deep-freeze": "^0.0.1"
+    "bootstrap": "^3.3.7",
+    "deep-freeze": "^0.0.1",
+    "less": "^3.0.1",
+    "less-watch-compiler": "^1.11.0",
+    "react": "^16.2.0",
+    "react-bootstrap": "^0.32.1",
+    "react-dom": "^16.2.0",
+    "react-redux": "5.0.7",
+    "react-scripts": "1.1.1",
+    "redux": "^3.7.2"
   }
 }
