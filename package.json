@@ -11,8 +11,11 @@
     "redux": "^3.7.2"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build-css": "less-watch-compiler --run-once src/assets/ src/assets/ styles.less",
+    "watch-css": "npm run build-css && less-watch-compiler src/assets/ src/assets/ styles.less",
+    "start-js": "react-scripts start",
+    "start": "yarn run watch-css && react-scripts start",
+    "build": "yarn run build-css && react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },

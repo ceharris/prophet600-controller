@@ -13,6 +13,7 @@ import amplifier from "./reducers/amplifier";
 import performance from "./reducers/performance";
 
 import App from "./components/App";
+import "./assets/styles.css";
 
 
 const logger = store => next => action => {

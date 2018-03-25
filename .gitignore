@@ -20,3 +20,7 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# when using less, we don't want css files in the repository
+*.css
+*.css.map

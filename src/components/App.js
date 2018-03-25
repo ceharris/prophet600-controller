@@ -10,8 +10,6 @@ import Filter from "./Filter/Panel";
 import Amplifier from "./Amplifier/Panel";
 import Performance from "./Performance/Panel";
 
-import "./App.css"
-
 export default ({ store }) => {
   return (
     <Provider store={store}>
