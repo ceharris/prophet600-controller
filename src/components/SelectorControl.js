@@ -8,13 +8,9 @@ import {
   synthSelectKnob, 
   synthDeselectKnob, 
   synthSetChoice,
-  synthNextChoice, 
+  synthNextChoice,
+  synthPrevChoice, 
 } from "../actions/synth";
-
-const handleChange = (dispatch, parameter, event) => {
-  console.log(`change ${parameter.group}.${parameter.name}: (${event.knobX} ${event.knobY}) 𝜃=${event.rotation.toPrecision(7)}° 𝜌=${event.percentRotation.toPrecision(7)}`);
-  dispatch(synthSetChoice(parameter, event.percentRotation));
-};
 
 export default (parameterName) => {
   const parameter = Parameters.get(parameterName);
@@ -24,10 +20,11 @@ export default (parameterName) => {
       choices: parameter.choices,
     }),
     dispatch => ({
-      onClick: () => dispatch(synthNextChoice(parameter)),
       onActivate: () => dispatch(synthSelectKnob(parameter)),
       onDeactivate: () => dispatch(synthDeselectKnob(parameter)),
-      onChange: (event) => handleChange(dispatch, parameter, event),
+      onChange: (event) => dispatch(synthSetChoice(parameter, event.percentRotation)),
+      onClick: (event) => dispatch(event.altKey ? 
+          synthPrevChoice(parameter) : synthNextChoice(parameter)),
     }),
   )(SelectorKnob);
 };

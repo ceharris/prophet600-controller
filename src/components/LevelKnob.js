@@ -1,7 +1,7 @@
 import React from "react";
 import Knob from "./Knob";
 
-export default ({ level, min, max, onActivate, onDeactivate, onChange }) => {
+export default ({ level, min, max, onClick, onActivate, onDeactivate, onChange }) => {
   let text = "!!!" + level;
   if (level !== undefined) {
     text = text.substring(text.length - 3);
@@ -10,7 +10,7 @@ export default ({ level, min, max, onActivate, onDeactivate, onChange }) => {
     text = "udf";
   }
   return (
-    <Knob percentRotation={(level - min) / (max - min + 1)} 
+    <Knob percentRotation={(level - min) / (max - min + 1)} onClick={onClick}
         onActivate={onActivate} onDeactivate={onDeactivate} onChange={onChange}>
       <rect className="display-box" x="-30" y="-15" rx="5" ry="5" width="60" height="32"/>
       <g transform="scale(1 -1)">

@@ -3,8 +3,11 @@ import {
   SYNTH_SELECT_KNOB,
   SYNTH_DESELECT_KNOB,
   SYNTH_SET_LEVEL,
+  SYNTH_INCR_LEVEL,
+  SYNTH_DECR_LEVEL,
   SYNTH_SET_CHOICE,
   SYNTH_NEXT_CHOICE,
+  SYNTH_PREV_CHOICE,
 } from "./names";
 
 export const synthToggleFlag = (parameter) => ({
@@ -36,6 +39,20 @@ export const synthSetLevel = (parameter, change) => ({
   }
 });
 
+export const synthIncrLevel = (parameter) => ({
+  type: SYNTH_INCR_LEVEL,
+  payload: {
+    parameter,
+  }
+});
+
+export const synthDecrLevel = (parameter) => ({
+  type: SYNTH_DECR_LEVEL,
+  payload: {
+    parameter,
+  }
+});
+
 export const synthSetChoice = (parameter, change) => ({
   type: SYNTH_SET_CHOICE,
   payload: {
@@ -46,6 +63,13 @@ export const synthSetChoice = (parameter, change) => ({
 
 export const synthNextChoice = (parameter) => ({
   type: SYNTH_NEXT_CHOICE,
+  payload: {
+    parameter,
+  }
+});
+
+export const synthPrevChoice = (parameter) => ({
+  type: SYNTH_PREV_CHOICE,
   payload: {
     parameter,
   }

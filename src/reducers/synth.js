@@ -3,10 +3,13 @@ import Parameters from "../parameters/defs";
 import {
   SYNTH_TOGGLE_FLAG,
   SYNTH_SET_LEVEL,
+  SYNTH_INCR_LEVEL,
+  SYNTH_DECR_LEVEL,
   SYNTH_SET_CHOICE,
   SYNTH_SELECT_KNOB,
   SYNTH_DESELECT_KNOB,
   SYNTH_NEXT_CHOICE,
+  SYNTH_PREV_CHOICE,
 } from "../actions/names";
 
 const defaultState = {
@@ -38,6 +41,14 @@ const reduceToggleFlag = (state, payload) => ({
   },
 });
 
+const levelChangeState = (state, parameter, level) => ({
+  ...state,
+  [parameter.group]: {
+    ...state[parameter.group],
+    [parameter.name]: level,
+  }
+});
+
 const reduceSetLevel = (state, payload) => {
   if (state.ui === null) return state;
   const parameter = payload.parameter;
@@ -50,14 +61,30 @@ const reduceSetLevel = (state, payload) => {
   else {
     level = Math.max(parameter.min, level);
   }
-  return ({
-    ...state,
-    [payload.parameter.group]: {
-      ...state[payload.parameter.group],
-      [payload.parameter.name]: level,
-    }
-  });
+  return levelChangeState(state, parameter, level);
 };
+
+const reduceIncrLevel = (state, payload) => {
+  const parameter = payload.parameter;
+  const level = Math.min(state[parameter.group][parameter.name] + 1,
+      parameter.max);
+  return levelChangeState(state, payload.parameter, level);
+};
+
+const reduceDecrLevel = (state, payload) => {
+  const parameter = payload.parameter;
+  const level = Math.max(state[parameter.group][parameter.name] - 1,
+      parameter.min);
+  return levelChangeState(state, payload.parameter, level);
+};
+
+const choiceChangeState = (state, parameter, selected) => ({
+  ...state,
+  [parameter.group]: {
+    ...state[parameter.group],
+    [parameter.name]: selected,
+  }
+});
 
 const reduceSetChoice = (state, payload) => {
   if (state.ui === null) return state;
@@ -68,13 +95,7 @@ const reduceSetChoice = (state, payload) => {
   const index = Math.max(Math.min(
       Math.round(origIndex + change), parameter.choices.length - 1), 0);
   const selected = parameter.choices[index];
-  return ({
-    ...state,
-    [payload.parameter.group]: {
-      ...state[payload.parameter.group],
-      [payload.parameter.name]: selected,
-    }
-  });
+  return choiceChangeState(state, parameter, selected);
 };
 
 const reduceNextChoice = (state, payload) => {
@@ -84,14 +105,17 @@ const reduceNextChoice = (state, payload) => {
               % parameter.choices.length;
   
   const newSelected = parameter.choices[index];
+  return choiceChangeState(state, parameter, newSelected);
+}
 
-  return ({
-    ...state,
-    [payload.parameter.group]: {
-      ...state[payload.parameter.group],
-      [payload.parameter.name]: newSelected,
-    }
-  });  
+const reducePrevChoice = (state, payload) => {
+  const parameter = payload.parameter;
+  const selected = state[parameter.group][parameter.name];
+  const index = (parameter.choices.indexOf(selected) - 1) 
+              % parameter.choices.length;
+  
+  const newSelected = parameter.choices[index];
+  return choiceChangeState(state, parameter, newSelected);
 }
 
 export default (state = defaultState, action) => {
@@ -111,11 +135,20 @@ export default (state = defaultState, action) => {
     case SYNTH_SET_LEVEL:
       return reduceSetLevel(state, action.payload);
 
+    case SYNTH_INCR_LEVEL:
+      return reduceIncrLevel(state, action.payload);
+    
+    case SYNTH_DECR_LEVEL:
+      return reduceDecrLevel(state, action.payload);
+
     case SYNTH_SET_CHOICE:
       return reduceSetChoice(state, action.payload);
 
     case SYNTH_NEXT_CHOICE:
       return reduceNextChoice(state, action.payload);
+    
+    case SYNTH_PREV_CHOICE:
+      return reducePrevChoice(state, action.payload);
 
     default:
       return state;
