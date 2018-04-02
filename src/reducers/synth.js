@@ -43,8 +43,13 @@ const reduceSetLevel = (state, payload) => {
   const parameter = payload.parameter;
   const origLevel = state.ui.selected[parameter.group][parameter.name];
   const change = (parameter.max - parameter.min + 1) * payload.change;
-  const level = Math.max(Math.min(
-      Math.round(origLevel + change), parameter.max), parameter.min);
+  let level = Math.round(origLevel + change);
+  if (Math.sign(level - origLevel) >= 0) {
+    level = Math.min(parameter.max, level);
+  }
+  else {
+    level = Math.max(parameter.min, level);
+  }
   return ({
     ...state,
     [payload.parameter.group]: {
@@ -111,7 +116,7 @@ export default (state = defaultState, action) => {
 
     case SYNTH_NEXT_CHOICE:
       return reduceNextChoice(state, action.payload);
-      
+
     default:
       return state;
   }
