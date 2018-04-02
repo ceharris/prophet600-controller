@@ -6,8 +6,8 @@ import {
   SYNTH_INCR_LEVEL,
   SYNTH_DECR_LEVEL,
   SYNTH_SET_CHOICE,
-  SYNTH_SELECT_KNOB,
-  SYNTH_DESELECT_KNOB,
+  SYNTH_UI_SELECT_KNOB,
+  SYNTH_UI_DESELECT_KNOB,
   SYNTH_NEXT_CHOICE,
   SYNTH_PREV_CHOICE,
 } from "../actions/names";
@@ -101,20 +101,18 @@ const reduceSetChoice = (state, payload) => {
 const reduceNextChoice = (state, payload) => {
   const parameter = payload.parameter;
   const selected = state[parameter.group][parameter.name];
-  const index = (parameter.choices.indexOf(selected) + 1) 
-              % parameter.choices.length;
-  
-  const newSelected = parameter.choices[index];
+  const index = parameter.choices.indexOf(selected);
+  const newIndex = index < parameter.choices.length - 1 ? index + 1 : 0;
+  const newSelected = parameter.choices[newIndex];
   return choiceChangeState(state, parameter, newSelected);
 }
 
 const reducePrevChoice = (state, payload) => {
   const parameter = payload.parameter;
   const selected = state[parameter.group][parameter.name];
-  const index = (parameter.choices.indexOf(selected) - 1) 
-              % parameter.choices.length;
-  
-  const newSelected = parameter.choices[index];
+  const index = parameter.choices.indexOf(selected);
+  const newIndex = index > 0 ? index - 1 : parameter.choices.length - 1;
+  const newSelected = parameter.choices[newIndex];
   return choiceChangeState(state, parameter, newSelected);
 }
 
@@ -126,10 +124,10 @@ export default (state = defaultState, action) => {
     case SYNTH_TOGGLE_FLAG:
       return reduceToggleFlag(state, action.payload);
 
-    case SYNTH_SELECT_KNOB:
+    case SYNTH_UI_SELECT_KNOB:
       return reduceSelectKnob(state, action.payload);
 
-    case SYNTH_DESELECT_KNOB:
+    case SYNTH_UI_DESELECT_KNOB:
       return reduceDeselectKnob(state, action.payload);
 
     case SYNTH_SET_LEVEL:

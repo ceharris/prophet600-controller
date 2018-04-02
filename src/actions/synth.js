@@ -1,7 +1,7 @@
 import {
   SYNTH_TOGGLE_FLAG,
-  SYNTH_SELECT_KNOB,
-  SYNTH_DESELECT_KNOB,
+  SYNTH_UI_SELECT_KNOB,
+  SYNTH_UI_DESELECT_KNOB,
   SYNTH_SET_LEVEL,
   SYNTH_INCR_LEVEL,
   SYNTH_DECR_LEVEL,
@@ -18,14 +18,14 @@ export const synthToggleFlag = (parameter) => ({
 });
 
 export const synthSelectKnob = (parameter) => ({
-  type: SYNTH_SELECT_KNOB,
+  type: SYNTH_UI_SELECT_KNOB,
   payload: {
     parameter,
   }
 });
 
 export const synthDeselectKnob = (parameter) => ({
-  type: SYNTH_DESELECT_KNOB,
+  type: SYNTH_UI_DESELECT_KNOB,
   payload: {
     parameter,
   }
