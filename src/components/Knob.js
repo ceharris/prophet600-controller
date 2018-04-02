@@ -71,38 +71,72 @@ export default class Knob extends React.Component {
     const dx = event.clientX - state.originX;
     const dy = event.clientY - state.originY;
 
-    if (!state.triggered) {
-      const radius = Math.sqrt(dx*dx + dy*dy);
-      let minRadius = this.props.adjustmentMinRadius;
-      if (!minRadius) minRadius = DEFAULT_MIN_RADIUS;
-      if (radius < minRadius) return;
+    const radius = Math.sqrt(dx*dx + dy*dy);
+    let minRadius = this.props.adjustmentMinRadius;
+    if (!minRadius) minRadius = DEFAULT_MIN_RADIUS;
+    if (radius >= minRadius) {
+      if (!state.triggered) {
+        state.phi = Math.atan2(dy, dx);
+        state.gamma = 0;
+        state.theta = 0;
+        state.lastRotation = 0;
+        state.triggered = true;
+      }
 
-      state.phi = Math.atan2(dy, dx);
-      state.triggered = true;
+      const rotation = this.computeRotation(dx, dy);
+
+      if (typeof this.props.onChange === "function") {
+        const changeEvent = this.changeEvent(event, dx, dy, rotation);
+        this.props.onChange(changeEvent);
+      }
+    }
+    else {
+      state.triggered = false;
     }
 
-    if (typeof this.props.onChange === "function") {
-      const rotation = this.computeRotation(dx, dy, state.phi);
-      const changeEvent = this.changeEvent(event, dx, dy, rotation);
-      this.props.onChange(changeEvent);
-    }
-  
     this.setState({ ui: state });
   }
 
-  computeRotation(dx, dy, phi) {
+  computeRotation(dx, dy) {
+    const state = this.state.ui;
+    const phi = state.phi;
     const rx = dx*Math.cos(phi) + dy*Math.sin(phi);
     const ry = -dx*Math.sin(phi) + dy*Math.cos(phi);
-    return 180 * (Math.atan2(ry, rx) / Math.PI);
+    let theta = Math.atan2(ry, rx);
+
+    const epsilon = Math.PI / 8;
+    if (Math.abs(Math.PI - state.theta) < epsilon) {
+      if (state.theta < Math.PI && theta < 0) {
+        state.gamma = 2*Math.PI;
+      }
+      else if (state.theta > Math.PI && theta > 0) {
+        state.gamma = 0;
+      }
+    }
+    else if (Math.abs(-Math.PI - state.theta) < epsilon) {
+      if (state.theta > -Math.PI && theta > 0) {
+        state.gamma = -2*Math.PI;
+      }
+      else if (state.theta < -Math.PI && theta < 0) {
+        state.gamma = 0;
+      }
+    }
+
+    theta += state.gamma;
+
+    state.theta = theta;
+    this.setState(state);
+    return theta;
   }
 
   changeEvent(event, dx, dy, rotation) {
+    const rotationDegrees = 180 * rotation / Math.PI;
     return {
       ...event,
       knobX: dx,
       knobY: dy,
-      rotation,
-      percentRotation: rotation / ROTATION_RANGE_DEGREES,
+      rotation: rotationDegrees,
+      percentRotation: rotationDegrees / ROTATION_RANGE_DEGREES,
     };
   }
 
