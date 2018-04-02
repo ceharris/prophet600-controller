@@ -16,7 +16,7 @@ export default ({ selected, choices, onActivate, onDeactivate,
       if (text.length < 3) {
         text = "!" + text;
       }
-      rotation = index / count;
+      rotation = (2*index + 1) / 2 / count;
     }
   }
   
