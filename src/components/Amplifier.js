@@ -9,6 +9,7 @@ import {
   AMPLIFIER_ENVELOPE_DECAY,
   AMPLIFIER_ENVELOPE_SUSTAIN,
   AMPLIFIER_ENVELOPE_RELEASE,
+  AMPLIFIER_ENVELOPE_VELOCITY,
 } from "../parameters/names";
 
 const Curve = SelectorControl(AMPLIFIER_ENVELOPE_CURVE);
@@ -17,6 +18,7 @@ const Attack = LevelControl(AMPLIFIER_ENVELOPE_ATTACK);
 const Decay = LevelControl(AMPLIFIER_ENVELOPE_DECAY);
 const Sustain = LevelControl(AMPLIFIER_ENVELOPE_SUSTAIN);
 const Release = LevelControl(AMPLIFIER_ENVELOPE_RELEASE);
+const Velocity = LevelControl(AMPLIFIER_ENVELOPE_VELOCITY);
 
 export default () => (
   <div id="amplifier-envelope" className="envelope control-group">
@@ -27,11 +29,13 @@ export default () => (
     <div id="amplifier-decay"><Decay/></div>
     <div id="amplifier-sustain"><Sustain/></div>
     <div id="amplifier-release"><Release/></div>
+    <div id="amplifier-velocity"><Velocity/></div>
     <label htmlFor="amplifier-curve">Curve</label>
     <label htmlFor="amplifier-rate">Rate</label>
     <label htmlFor="amplifier-attack">Attack</label>
     <label htmlFor="amplifier-decay">Decay</label>
     <label htmlFor="amplifier-sustain">Sustain</label>
     <label htmlFor="amplifier-release">Release</label>
+    <label htmlFor="amplifier-velocity">Velocity</label>
   </div>
 );

@@ -333,10 +333,10 @@ input[type="range"] {
 
 #oscillatorA {
   height: 130px;
-  width: 500px;
+  width: 600px;
   grid-column: 7 / span 6;
   display: grid;
-  grid-template-columns: 84px 83px 83px 83px 83px 84px;
+  grid-template-columns: repeat(6, 100px);
   grid-template-rows: 40px 4f 1f 20px;
   .group-label {
     grid-column: 1 / span 6;
@@ -348,11 +348,11 @@ input[type="range"] {
 
 #oscillatorB {
   height: 130px;
-  width: 500px;
+  width: 600px;
   grid-row: 3;
   grid-column: 7 / span 6;
   display: grid;
-  grid-template-columns: 84px 83px 83px 83px 83px 84px;
+  grid-template-columns: repeat(6, 100px);
   grid-template-rows: 40px 4f 1f 20px;
   .group-label {
     grid-column: 1 / span 6;
@@ -364,17 +364,17 @@ input[type="range"] {
 
 #mixer-filter-container {
   height: 130px;
-  width: 500px;
+  width: 600px;
   display: grid;
   grid-row: 5;
-  grid-column: 7 / span 5;
-  grid-template-columns: 168px 332px;
+  grid-column: 7 / span 6;
+  grid-template-columns: 200px 400px;
   grid-template-rows: 130px;
 }
 
 #mixer {
   height: 130px;
-  width: 168px;  
+  width: 200px;  
   display: grid;
   grid-template-columns: 100 98px;
   grid-template-rows: 40px 4f 1f;
@@ -385,11 +385,11 @@ input[type="range"] {
 
 #filter {
   height: 130px;
-  width: 332px;
+  width: 400px;
   display: grid;
   border-width: 1px 1px 0px 0px;
   border-radius: 15px 15px 0px 0px;
-  grid-template-columns: repeat(4, 83px);
+  grid-template-columns: repeat(4, 100px);
   grid-template-rows: 20px 4f 1f;  
   .group-label {
     grid-column: 1 / span 4;
@@ -398,13 +398,13 @@ input[type="range"] {
 
 .envelope {
   height: 130px;
-  width: 500px;
+  width: 600px;
   grid-column: 7 / span 6;
   display: grid;
-  grid-template-columns: 84px 83px 83px 83px 83px 84px;
+  grid-template-columns: 85px repeat(5, 86px) 85px;
   grid-template-rows: 40px 4f 1f 20px;
   .group-label {
-    grid-column: 1 / span 6;
+    grid-column: 1 / span 7;
   }
 }
 
