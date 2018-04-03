@@ -9,32 +9,54 @@ export const DEFAULT_MIN_RADIUS = 25;
 export default class Knob extends React.Component {
   constructor(props) {
     super(props);
+    this.handleKnobActivated = this.handleKnobActivated.bind(this);
+    this.handleKnobDeactivated = this.handleKnobDeactivated.bind(this);
     this.handleMouseDown = this.handleMouseDown.bind(this);
     this.handleMouseUp = this.handleMouseUp.bind(this);
     this.handleMouseMove = this.handleMouseMove.bind(this);
-    this.state = { ui: { activated: false } };
+    this.handleMouseClick = this.handleMouseClick.bind(this);
+    this.state = { ui: { activeKnob: undefined } };
   }
 
   componentDidMount() {
+    window.addEventListener("knobActivated", this.handleKnobActivated);
+    window.addEventListener("knobDeactivated", this.handleKnobDeactivated);
     window.addEventListener("mouseup", this.handleMouseUp);
     window.addEventListener("mousemove", this.handleMouseMove);
   }
 
   componentWillUnmount() {
+    window.removeEventListener("knobActivated", this.handleKnobActivated);
+    window.removeEventListener("knobDeactivated", this.handleKnobDeactivated);
     window.removeEventListener("mouseup", this.handleMouseUp);
     window.removeEventListener("mousemove", this.handleMouseMove);
   }
 
-  handleMouseDown(event) {
-    if (this.state.ui.activated) return;
-    
-    this.setState({ 
+  handleKnobActivated(event) {
+    this.setState({
+      ui: event.detail,
+    });
+  }
+
+  handleKnobDeactivated(event) {
+    this.setState({
       ui: {
-        activated: true,
-        originX: event.clientX,
-        originY: event.clientY,
+        activeKnob: undefined,
       }
     });
+  }
+
+  handleMouseDown(event) {
+    const state = this.state.ui;
+    if (state.activeKnob) return;
+    
+    window.dispatchEvent(new CustomEvent("knobActivated", {
+      detail: {
+        activeKnob: this,
+        originX: event.clientX,
+        originY: event.clientY,  
+      }
+    }));
 
     if (typeof this.props.onActivate === "function") {
       this.props.onActivate(event);
@@ -43,21 +65,20 @@ export default class Knob extends React.Component {
   
   handleMouseUp(event) {
     const state = this.state.ui;
-    if (!state.activated) return;
+    if (state.activeKnob !== this) return;
 
-    if (state.triggered && typeof this.props.onChanged === "function") {
-      const dx = event.clientX - state.originX;
-      const dy = event.clientY - state.originY;
-      const rotation = this.computeRotation(dx, dy, state.phi);
-      const changeEvent = this.changeEvent(event, dx, dy, rotation);
+    if (state.triggered && typeof this.props.onChanged === "function"
+        && state.lastX !== undefined) {
+      const rotation = this.computeRotation(state.lastX, state.lastY, state.phi);
+      const changeEvent = this.changeEvent(state.lastX, state.lastY, rotation);
       this.props.onChanged(changeEvent);
     }
     
-    this.setState({ 
-      ui: {
-        activated: false,
+    window.dispatchEvent(new CustomEvent("knobDeactivated", {
+      detail: {
+        activeKnob: this,
       }
-    });
+    }));
 
     if (typeof this.props.onDeactivate === "function") {
       this.props.onDeactivate(event);
@@ -66,7 +87,7 @@ export default class Knob extends React.Component {
   
   handleMouseMove(event) {
     const state = this.state.ui;
-    if (!state.activated) return;
+    if (state.activeKnob !== this) return;
 
     const dx = event.clientX - state.originX;
     const dy = event.clientY - state.originY;
@@ -74,6 +95,7 @@ export default class Knob extends React.Component {
     const radius = Math.sqrt(dx*dx + dy*dy);
     let minRadius = this.props.adjustmentMinRadius;
     if (!minRadius) minRadius = DEFAULT_MIN_RADIUS;
+
     if (radius >= minRadius) {
       if (!state.triggered) {
         state.phi = Math.atan2(dy, dx);
@@ -84,17 +106,26 @@ export default class Knob extends React.Component {
       }
 
       const rotation = this.computeRotation(dx, dy);
-
+      state.lastX = dx;
+      state.lastY = dy;
+    
       if (typeof this.props.onChange === "function") {
-        const changeEvent = this.changeEvent(event, dx, dy, rotation);
+        const changeEvent = this.changeEvent(dx, dy, rotation);
         this.props.onChange(changeEvent);
       }
     }
-    else {
-      state.triggered = false;
+    else if (state.triggered) {
+      this.handleMouseUp(event);
     }
 
     this.setState({ ui: state });
+  }
+
+  handleMouseClick(event) {
+    if (this.state.activeKnob) return;
+    if (typeof this.props.onClick === "function") {
+      this.props.onClick(event);
+    }
   }
 
   computeRotation(dx, dy) {
@@ -129,12 +160,9 @@ export default class Knob extends React.Component {
     return theta;
   }
 
-  changeEvent(event, dx, dy, rotation) {
+  changeEvent(dx, dy, rotation) {
     const rotationDegrees = 180 * rotation / Math.PI;
     return {
-      ...event,
-      knobX: dx,
-      knobY: dy,
       rotation: rotationDegrees,
       percentRotation: rotationDegrees / ROTATION_RANGE_DEGREES,
     };
@@ -173,7 +201,7 @@ export default class Knob extends React.Component {
               transform={`rotate(${rotation})`} />
         {this.props.children}
         <circle className="glass" cx="0" cy="0" r="75" 
-            onMouseDown={this.handleMouseDown} onClick={this.props.onClick}/>
+            onMouseDown={this.handleMouseDown} onClick={this.handleMouseClick}/>
       </g>
     </svg>
     );
