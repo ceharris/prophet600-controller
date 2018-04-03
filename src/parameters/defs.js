@@ -83,6 +83,8 @@ import {
 } from "../parameters/names";
 
 class Parameter {
+  controller = undefined;
+
   constructor(type, group, name, init) {
     this.type = type;
     this.group = group;
@@ -94,11 +96,24 @@ class Parameter {
     return state[this.group][this.name];
   }
 
+  toControllerValue(state) {
+    throw new Error("parameter must implement transformValue");
+  }
+
 }
 
 class FlagParameter extends Parameter {
-  constructor(group, name, init) {
+  constructor(group, name, init, valueTransformer) {
     super(PARAM_TYPE_FLAG, group, name, init !== undefined ? init : false);
+    this.valueTransformer = valueTransformer !== undefined ? 
+    valueTransformer : (state, parameter) => {
+                          const isOn = state[this.group][this.name];
+                          return isOn ? 1 : 0;
+                        };
+  }
+
+  toControllerValue(state) {
+    return this.valueTransformer(state, this);
   }
 }
 
@@ -108,15 +123,41 @@ class LevelParameter extends Parameter {
     this.min = min;
     this.max = max;
   }
+  
+  toControllerValue(state) {
+    return this.getState(state);
+  }
 }
 
 class ChoiceParameter extends Parameter {
-  constructor (group, name, choices, init) {
+  constructor (group, name, choices, init, valueTransformer) {
     super(PARAM_TYPE_CHOICE, group, name, 
           init !== undefined ? init : choices[0]);
     this.choices = choices;
+    this.valueTransformer = valueTransformer !== undefined ? 
+      valueTransformer : (state, parameter) => {
+                            const selected = state[this.group][this.name];
+                            return parameter.choices.indexOf(selected);
+                          };
+  }
+
+  toControllerValue(state) {
+    return this.valueTransformer(state, this);
   }
 }
+
+const lfoDestinationModeValueTransformer = (state, parameter) => {
+  const targetParam = parameters.get(LFO_DEST_TARGET);
+  const target = targetParam.choices.indexOf(targetParam.getState(state));
+  const frequency = parameters.get(LFO_DEST_FREQUENCY).getState(state);
+  const pulseWidth = parameters.get(LFO_DEST_PULSE_WIDTH).getState(state);
+  const filter = parameters.get(LFO_DEST_FILTER).getState(state);
+  return (((target & 0x3) << 3)
+       | (((frequency ? 1 : 0) & 0x1) << 2)
+       | (((pulseWidth ? 1 : 0) & 0x1) << 1)
+       | ((filter ? 1 : 0) & 0x1))
+       & 0x7f;
+};
 
 const defs = {
   [POLYMOD_SOURCE_FILTER_ENV]: 
@@ -140,13 +181,16 @@ const defs = {
     new LevelParameter(PARAM_GROUP_LFO, "delay", 0, 255),
   [LFO_DEST_TARGET]: 
     new ChoiceParameter(PARAM_GROUP_LFO, "destinationTarget",
-        [ "a", "b", "ab"]),
+        [ "a", "b", "ab"], "a", lfoDestinationModeValueTransformer),
   [LFO_DEST_FREQUENCY]: 
-    new FlagParameter(PARAM_GROUP_LFO, "destinationFrequency"),
+    new FlagParameter(PARAM_GROUP_LFO, "destinationFrequency", false,
+        lfoDestinationModeValueTransformer),
   [LFO_DEST_PULSE_WIDTH]: 
-    new FlagParameter(PARAM_GROUP_LFO, "destinationPulseWidth"),
+    new FlagParameter(PARAM_GROUP_LFO, "destinationPulseWidth", false,
+        lfoDestinationModeValueTransformer),
   [LFO_DEST_FILTER]: 
-    new FlagParameter(PARAM_GROUP_LFO, "destinationFilter"),
+    new FlagParameter(PARAM_GROUP_LFO, "destinationFilter", false,
+        lfoDestinationModeValueTransformer),
   [VIBRATO_FREQUENCY]: 
     new LevelParameter(PARAM_GROUP_VIBRATO, "frequency", 0, 255),
   [VIBRATO_DEPTH]: 
@@ -247,6 +291,11 @@ const defs = {
 };
 
 class Parameters {
+
+  visit(fn) {
+    Object.keys(defs).forEach(key => fn(key, defs[key]));
+  }
+
   get(name) {
     if (!name || !defs[name]) {
       throw new Error(`undefined parameter name: ${name}`);
@@ -268,4 +317,5 @@ class Parameters {
   }
 }
 
-export default new Parameters();
+const parameters = new Parameters();
+export default parameters;
