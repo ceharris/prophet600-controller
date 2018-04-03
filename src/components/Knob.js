@@ -14,7 +14,6 @@ export default class Knob extends React.Component {
     this.handleMouseDown = this.handleMouseDown.bind(this);
     this.handleMouseUp = this.handleMouseUp.bind(this);
     this.handleMouseMove = this.handleMouseMove.bind(this);
-    this.handleMouseClick = this.handleMouseClick.bind(this);
     this.state = { ui: { activeKnob: undefined } };
   }
 
@@ -67,7 +66,7 @@ export default class Knob extends React.Component {
     const state = this.state.ui;
     if (state.activeKnob !== this) return;
 
-    if (state.triggered && typeof this.props.onChanged === "function"
+    if (state.latched && typeof this.props.onChanged === "function"
         && state.lastX !== undefined) {
       const rotation = this.computeRotation(state.lastX, state.lastY, state.phi);
       const changeEvent = this.changeEvent(state.lastX, state.lastY, rotation);
@@ -82,6 +81,10 @@ export default class Knob extends React.Component {
 
     if (typeof this.props.onDeactivate === "function") {
       this.props.onDeactivate(event);
+    }
+    
+    if (!state.latched && typeof this.props.onClick === "function") {
+      this.props.onClick(event);
     }
   }
   
@@ -103,6 +106,7 @@ export default class Knob extends React.Component {
         state.theta = 0;
         state.lastRotation = 0;
         state.triggered = true;
+        state.latched = true;
       }
 
       const rotation = this.computeRotation(dx, dy);
@@ -119,13 +123,6 @@ export default class Knob extends React.Component {
     }
 
     this.setState({ ui: state });
-  }
-
-  handleMouseClick(event) {
-    if (this.state.activeKnob) return;
-    if (typeof this.props.onClick === "function") {
-      this.props.onClick(event);
-    }
   }
 
   computeRotation(dx, dy) {
@@ -201,7 +198,7 @@ export default class Knob extends React.Component {
               transform={`rotate(${rotation})`} />
         {this.props.children}
         <circle className="glass" cx="0" cy="0" r="75" 
-            onMouseDown={this.handleMouseDown} onClick={this.handleMouseClick}/>
+            onMouseDown={this.handleMouseDown}/>
       </g>
     </svg>
     );
