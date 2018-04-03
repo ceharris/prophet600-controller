@@ -1,14 +1,19 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import { MIDI } from "./midi/MIDI";
+import Controllers from "./midi/controllers";
+
 import { createStore, applyMiddleware } from "redux";
-import { configureControllers } from "./midi/controllers";
 import synthControlSender from "./middleware/synthControlSender";
 import reducers from "./reducers/reducers";
 import App from "./components/App";
 
 import "./assets/styles.css";
 
-configureControllers();
+MIDI.open().then((midi) => {
+  Controllers.midi = midi;
+  midi.channel = 1;
+});
 
 
 const logger = store => next => action => {

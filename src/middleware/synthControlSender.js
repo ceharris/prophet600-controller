@@ -1,5 +1,5 @@
 
-import MIDI from "../midi/MIDI";
+import Controllers from "../midi/controllers";
 import { synthState } from "../reducers/reducers";
 
 export default ({ getState }) => next => action => {
@@ -7,10 +7,6 @@ export default ({ getState }) => next => action => {
   if (action.type.startsWith("SYNTH_UI_")) return next(action);
 
   const result = next(action);
-
-  const parameter = action.payload.parameter;
-  const controllerValue = parameter.toControllerValue(synthState(getState()));
-  parameter.controller.send(MIDI, controllerValue);
-
+  Controllers.send(synthState(getState()), action.payload.parameter);
   return result;
 };

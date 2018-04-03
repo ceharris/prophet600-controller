@@ -65,7 +65,7 @@ import {
 
 class Controller {
 
-  send(MIDI, value) {
+  send(midi, state, parameter) {
     throw new Error("controller " + this + " doesn't implement send");
   }
 
@@ -79,24 +79,40 @@ class ContinuousController extends Controller {
     this.bits = bits === undefined ? 8 : bits;
   }
 
-  send(MIDI, value) {
+  send(midi, state, parameter) {
+    const value = parameter.toControllerValue(state);
     const word = (value << (14 - this.bits)) & 0x3fff;
-    MIDI.controlChange(this.coarseId, (word >> 7) & 0x7f);
-    MIDI.controlChange(this.fineId, word & 0x7f);
+    midi.controlChange(this.coarseId, (word >> 7) & 0x7f);
+    midi.controlChange(this.fineId, word & 0x7f);
   }
 }
 
 class StepController extends Controller {
-  constructor(id, bits) {
+  constructor(id, bits, transformer) {
     super();
     this.id = id;
     this.bits = bits;
+    this.transformer = transformer !== undefined ? 
+        transformer : (state, parameter) => parameter.toControllerValue(state);
   }
 
-  send(MIDI, value) {
-    MIDI.controlChange(this.id, (value << (7 - this.bits)) & 0x7f);
+  send(midi, state, parameter) {
+    const value = this.transformer(state, parameter);
+    midi.controlChange(this.id, (value << (7 - this.bits)) & 0x7f);
   }
 }
+
+const lfoDestinationModeTransformer = (state, parameter) => {
+  const target = Parameters.get(LFO_DEST_TARGET).toControllerValue(state);
+  const frequency = Parameters.get(LFO_DEST_FREQUENCY).toControllerValue(state);
+  const pulseWidth = Parameters.get(LFO_DEST_PULSE_WIDTH).toControllerValue(state);
+  const filter = Parameters.get(LFO_DEST_FILTER).toControllerValue(state);
+  return (((target & 0x3) << 3)
+       | ((frequency & 0x1) << 2)
+       | ((pulseWidth & 0x1) << 1)
+       | (filter & 0x1))
+       & 0x7f;
+};
 
 const controllers = {
   [POLYMOD_SOURCE_FILTER_ENV]:        new ContinuousController(34, 98),
@@ -108,10 +124,10 @@ const controllers = {
   [LFO_SHAPE]:                        new StepController(57, 3),
   [LFO_DEPTH]:                        new ContinuousController(37, 101),
   [LFO_DELAY]:                        new ContinuousController(41, 105),
-  [LFO_DEST_TARGET]:                  new StepController(59, 5),
-  [LFO_DEST_FREQUENCY]:               new StepController(59, 5),
-  [LFO_DEST_PULSE_WIDTH]:             new StepController(59, 5),
-  [LFO_DEST_FILTER]:                  new StepController(59, 5),
+  [LFO_DEST_TARGET]:                  new StepController(59, 5, lfoDestinationModeTransformer),
+  [LFO_DEST_FREQUENCY]:               new StepController(59, 5, lfoDestinationModeTransformer),
+  [LFO_DEST_PULSE_WIDTH]:             new StepController(59, 5, lfoDestinationModeTransformer),
+  [LFO_DEST_FILTER]:                  new StepController(59, 5, lfoDestinationModeTransformer),
   [VIBRATO_FREQUENCY]:                new ContinuousController(42, 106),
   [VIBRATO_DEPTH]:                    new ContinuousController(43, 107),
   [UNISON_TRACK]:                     new StepController(65, 1),
@@ -157,8 +173,20 @@ const controllers = {
   [GLOBAL_FREQUENCY_STEP]:            new StepController(70, 2),
 }
 
-export const configureControllers = () => {
-  Parameters.visit((name, parameter) => {
-    parameter.controller = controllers[name];
-  });  
+class Controllers {
+  midi = undefined;
+
+  send(state, parameter) {
+    if (this.midi === undefined)  {
+      console.log("MIDI unavailable");
+    }
+    
+    const id = parameter.id;
+    if (!id || !controllers[id]) {
+      throw new Error(`no controller for parameter ${id}`);
+    }
+    controllers[id].send(this.midi, state, parameter);
+  }
 }
+
+export default new Controllers();
