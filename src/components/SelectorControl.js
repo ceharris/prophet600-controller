@@ -7,7 +7,7 @@ import Parameters from "../parameters/defs";
 import { 
   synthSelectKnob, 
   synthDeselectKnob, 
-  synthSetChoice,
+  synthChangeChoice,
   synthNextChoice,
   synthPrevChoice, 
 } from "../actions/synth";
@@ -22,7 +22,7 @@ export default (parameterName) => {
     dispatch => ({
       onActivate: () => dispatch(synthSelectKnob(parameter)),
       onDeactivate: () => dispatch(synthDeselectKnob(parameter)),
-      onChange: (event) => dispatch(synthSetChoice(parameter, event.percentRotation)),
+      onChange: (event) => dispatch(synthChangeChoice(parameter, event.percentRotation)),
       onClick: (event) => dispatch(event.altKey ? 
           synthPrevChoice(parameter) : synthNextChoice(parameter)),
     }),

@@ -7,7 +7,7 @@ import { synthState } from "../reducers/reducers";
 import { 
   synthSelectKnob, 
   synthDeselectKnob, 
-  synthSetLevel, 
+  synthChangeLevel, 
   synthIncrLevel,
   synthDecrLevel,
 } from "../actions/synth";
@@ -23,7 +23,7 @@ export default (parameterName) => {
     dispatch => ({
       onActivate: () => dispatch(synthSelectKnob(parameter)),
       onDeactivate: () => dispatch(synthDeselectKnob(parameter)),
-      onChange: (event) => dispatch(synthSetLevel(parameter, event.percentRotation)),
+      onChange: (event) => dispatch(synthChangeLevel(parameter, event.percentRotation)),
       onClick: (event) => dispatch(event.altKey ? 
           synthDecrLevel(parameter) : synthIncrLevel(parameter)),
     }),

@@ -96,9 +96,12 @@ class Parameter {
   }
 
   toControllerValue(state) {
-    throw new Error("parameter must implement transformValue");
+    throw new Error("parameter must implement toControllerValue");
   }
 
+  toModelValue(controllerValue) {
+    throw new Error("parameter must implement toModelValue");
+  }
 }
 
 class FlagParameter extends Parameter {
@@ -108,6 +111,10 @@ class FlagParameter extends Parameter {
 
   toControllerValue(state) {
     return this.getState(state) ? 1 : 0;
+  }
+
+  toModelValue(controllerValue) {
+    return controllerValue !== 0;
   }
 }
 
@@ -121,23 +128,36 @@ class LevelParameter extends Parameter {
   toControllerValue(state) {
     return this.getState(state);
   }
+
+  toModelValue(controllerValue) {
+    // FIXME
+    return (controllerValue >> 8) & 0xff;
+  }
 }
 
 class ChoiceParameter extends Parameter {
-  constructor (id, group, name, choices, init, valueTransformer) {
+  constructor (id, group, name, choices, init, toControllerValueFn,
+      toModelValueFn) {
     super(id, PARAM_TYPE_CHOICE, group, name, 
           init !== undefined ? init : choices[0]);
     this.choices = choices;
-    this.valueTransformer = valueTransformer !== undefined ? 
-      valueTransformer : (state, parameter) => {
+    this.toControllerValueFn = toControllerValueFn !== undefined ? 
+      toControllerValueFn : (state, parameter) => {
                             const selected = state[this.group][this.name];
                             return parameter.choices.indexOf(selected);
                           };
+    this.toModelValueFn = toModelValueFn !== undefined ? 
+      toModelValueFn : (value, parameter) => parameter.choices[value];
   }
 
   toControllerValue(state) {
-    return this.valueTransformer(state, this);
+    return this.toControllerValueFn(state, this);
   }
+
+  toModelValue(controllerValue) {
+    return this.toModelValueFn(controllerValue, this);
+  }
+
 }
 
 const definitions = [
@@ -147,10 +167,10 @@ const definitions = [
   new FlagParameter(POLYMOD_DEST_FILTER, PARAM_GROUP_POLYMOD, "destFilter"),
   new LevelParameter(LFO_FREQUENCY, PARAM_GROUP_LFO, "frequency", 0, 255),
   new ChoiceParameter(LFO_RANGE, PARAM_GROUP_LFO, "range", [ "low", "high"]),
-  new ChoiceParameter(LFO_SHAPE, PARAM_GROUP_LFO, "shape", [ "triangle", "sine", "sawtooth", "pulse", "random", "noise" ]),
+  new ChoiceParameter(LFO_SHAPE, PARAM_GROUP_LFO, "shape", [ "pul", "tri", "ran", "sin", "noi", "saw" ]), //[ "triangle", "sine", "sawtooth", "pulse", "random", "noise" ]),
   new LevelParameter(LFO_DEPTH, PARAM_GROUP_LFO, "depth", 0, 255),
   new LevelParameter(LFO_DELAY, PARAM_GROUP_LFO, "delay", 0, 255),
-  new ChoiceParameter(LFO_DEST_TARGET, PARAM_GROUP_LFO, "destinationTarget", [ "a", "b", "ab"]),
+  new ChoiceParameter(LFO_DEST_TARGET, PARAM_GROUP_LFO, "destinationTarget", [ "ab", "a", "b"]),
   new FlagParameter(LFO_DEST_FREQUENCY, PARAM_GROUP_LFO, "destinationFrequency"),
   new FlagParameter(LFO_DEST_PULSE_WIDTH, PARAM_GROUP_LFO, "destinationPulseWidth"),
   new FlagParameter(LFO_DEST_FILTER, PARAM_GROUP_LFO, "destinationFilter"),
@@ -177,14 +197,14 @@ const definitions = [
   new LevelParameter(FILTER_ENVELOPE_AMOUNT, PARAM_GROUP_FILTER, "envelopeAmount", 0, 255),
   new ChoiceParameter(FILTER_KEYBOARD_TRACK, PARAM_GROUP_FILTER, "keyboardTrack", [ "off", "1/2", "full"], "full"), 
   new ChoiceParameter(FILTER_ENVELOPE_CURVE, PARAM_GROUP_FILTER, "curve", [ "linear", "exponential"]),
-  new ChoiceParameter(FILTER_ENVELOPE_RATE, PARAM_GROUP_FILTER, "rate", [ "slow", "fast"]),
+  new ChoiceParameter(FILTER_ENVELOPE_RATE, PARAM_GROUP_FILTER, "rate", [ "fast", "slow"]),
   new LevelParameter(FILTER_ENVELOPE_ATTACK, PARAM_GROUP_FILTER, "attack", 0, 255),
   new LevelParameter(FILTER_ENVELOPE_DECAY, PARAM_GROUP_FILTER, "decay", 0, 255),
   new LevelParameter(FILTER_ENVELOPE_SUSTAIN, PARAM_GROUP_FILTER, "sustain", 0, 255),
   new LevelParameter(FILTER_ENVELOPE_RELEASE, PARAM_GROUP_FILTER, "release", 0, 255),
   new LevelParameter(FILTER_ENVELOPE_VELOCITY, PARAM_GROUP_FILTER, "velocity", 0, 255),
   new ChoiceParameter(AMPLIFIER_ENVELOPE_CURVE, PARAM_GROUP_AMPLIFIER, "curve", [ "linear", "exponential"]),
-  new ChoiceParameter(AMPLIFIER_ENVELOPE_RATE, PARAM_GROUP_AMPLIFIER, "rate", [ "slow", "fast"]),
+  new ChoiceParameter(AMPLIFIER_ENVELOPE_RATE, PARAM_GROUP_AMPLIFIER, "rate", [ "fast", "slow"]),
   new LevelParameter(AMPLIFIER_ENVELOPE_ATTACK, PARAM_GROUP_AMPLIFIER, "attack", 0, 255),
   new LevelParameter(AMPLIFIER_ENVELOPE_DECAY, PARAM_GROUP_AMPLIFIER, "decay", 0, 255),
   new LevelParameter(AMPLIFIER_ENVELOPE_SUSTAIN, PARAM_GROUP_AMPLIFIER, "sustain", 0, 255),

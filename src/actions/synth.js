@@ -1,21 +1,18 @@
 import {
-  SYNTH_TOGGLE_FLAG,
   SYNTH_UI_SELECT_KNOB,
   SYNTH_UI_DESELECT_KNOB,
+  SYNTH_UI_SELECT_PATCH,
+  SYNTH_SET_FLAG,
   SYNTH_SET_LEVEL,
+  SYNTH_SET_CHOICE,
+  SYNTH_TOGGLE_FLAG,
+  SYNTH_CHANGE_LEVEL,
   SYNTH_INCR_LEVEL,
   SYNTH_DECR_LEVEL,
-  SYNTH_SET_CHOICE,
+  SYNTH_CHANGE_CHOICE,
   SYNTH_NEXT_CHOICE,
   SYNTH_PREV_CHOICE,
 } from "./names";
-
-export const synthToggleFlag = (parameter) => ({
-  type: SYNTH_TOGGLE_FLAG,
-  payload: {
-    parameter,
-  },
-});
 
 export const synthSelectKnob = (parameter) => ({
   type: SYNTH_UI_SELECT_KNOB,
@@ -31,8 +28,46 @@ export const synthDeselectKnob = (parameter) => ({
   }
 });
 
-export const synthSetLevel = (parameter, change) => ({
+export const synthSelectPatch = (number) => ({
+  type: SYNTH_UI_SELECT_PATCH,
+  payload: {
+    number,
+  }
+});
+
+export const synthSetFlag = (parameter, flag) => ({
+  type: SYNTH_SET_FLAG,
+  payload: {
+    parameter,
+    flag,
+  },
+});
+
+export const synthSetLevel = (parameter, level) => ({
   type: SYNTH_SET_LEVEL,
+  payload: {
+    parameter,
+    level,
+  },
+});
+
+export const synthSetChoice = (parameter, selected) => ({
+  type: SYNTH_SET_CHOICE,
+  payload: {
+    parameter,
+    selected,
+  },
+});
+
+export const synthToggleFlag = (parameter) => ({
+  type: SYNTH_TOGGLE_FLAG,
+  payload: {
+    parameter,
+  },
+});
+
+export const synthChangeLevel = (parameter, change) => ({
+  type: SYNTH_CHANGE_LEVEL,
   payload: {
     parameter,
     change,
@@ -53,8 +88,8 @@ export const synthDecrLevel = (parameter) => ({
   }
 });
 
-export const synthSetChoice = (parameter, change) => ({
-  type: SYNTH_SET_CHOICE,
+export const synthChangeChoice = (parameter, change) => ({
+  type: SYNTH_CHANGE_CHOICE,
   payload: {
     parameter,
     change,

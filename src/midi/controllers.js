@@ -79,11 +79,11 @@ class ContinuousController extends Controller {
     this.bits = bits === undefined ? 8 : bits;
   }
 
-  send(midi, state, parameter) {
+  async send(midi, state, parameter) {
     const value = parameter.toControllerValue(state);
     const word = (value << (14 - this.bits)) & 0x3fff;
-    midi.controlChange(this.coarseId, (word >> 7) & 0x7f);
-    midi.controlChange(this.fineId, word & 0x7f);
+    await midi.controlChange(this.coarseId, (word >> 7) & 0x7f);
+    return midi.controlChange(this.fineId, word & 0x7f);
   }
 }
 
@@ -96,9 +96,9 @@ class StepController extends Controller {
         transformer : (state, parameter) => parameter.toControllerValue(state);
   }
 
-  send(midi, state, parameter) {
+  async send(midi, state, parameter) {
     const value = this.transformer(state, parameter);
-    midi.controlChange(this.id, (value << (7 - this.bits)) & 0x7f);
+    return midi.controlChange(this.id, (value << (7 - this.bits)) & 0x7f);
   }
 }
 
@@ -185,7 +185,7 @@ class Controllers {
     if (!id || !controllers[id]) {
       throw new Error(`no controller for parameter ${id}`);
     }
-    controllers[id].send(this.midi, state, parameter);
+    controllers[id].send(this.midi, state, parameter).catch(err => console.log(err));
   }
 }
 
