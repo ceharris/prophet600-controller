@@ -117,8 +117,8 @@ class FlagParameter extends Parameter {
     return this.getState(state) ? 1 : 0;
   }
 
-  toModelValue(controllerValue) {
-    return controllerValue !== 0;
+  toModelValue(number) {
+    return number !== 0;
   }
 }
 
@@ -139,20 +139,20 @@ class LevelParameter extends Parameter {
     return this.getState(state);
   }
 
-  toModelValue(controllerValue) {
-    return controllerValue;
+  toModelValue(number) {
+    return number;
   }
 }
 
 class ChoiceParameter extends Parameter {
-  constructor (id, group, name, choices, init, toControllerValueFn,
+  constructor (id, group, name, choices, init, toNumberFn,
       toModelValueFn) {
     super(id, PARAM_TYPE_CHOICE, group, name, 
           init !== undefined ? init : choices[0]);
     this.choices = choices;
-    this.toControllerValueFn = toControllerValueFn !== undefined ? 
-      toControllerValueFn : (state, parameter) => {
-                            const selected = state[this.group][this.name];
+    this.toNumberFn = toNumberFn !== undefined ? 
+      toNumberFn : (state, parameter) => {
+                            const selected = state[parameter.group][parameter.name];
                             return parameter.choices.indexOf(selected);
                           };
     this.toModelValueFn = toModelValueFn !== undefined ? 
@@ -160,13 +160,27 @@ class ChoiceParameter extends Parameter {
   }
 
   toNumber(state) {
-    return this.toControllerValueFn(state, this);
+    return this.toNumberFn(state, this);
   }
 
-  toModelValue(controllerValue) {
-    return this.toModelValueFn(controllerValue, this);
+  toModelValue(number) {
+    return this.toModelValueFn(number, this);
   }
 
+}
+
+const lfoShapeToNumber = (state, parameter) => {
+  const selected = state[parameter.group][parameter.name];
+  const index = parameter.choices.indexOf(selected);
+  const count = parameter.choices.length;
+
+  return ((index % (count / 2)) << 1) | (1 - Math.round(index / count));
+};
+
+const numberToLfoShape = (number, parameter) => {
+  const count = parameter.choices.length;
+  const index = (number >> 1) + (1 - (number & 1))*(count / 2);
+  return parameter.choices[index];
 }
 
 const definitions = [
@@ -176,7 +190,9 @@ const definitions = [
   new FlagParameter(POLYMOD_DEST_FILTER, PARAM_GROUP_POLYMOD, "destFilter"),
   new LevelParameter(LFO_FREQUENCY, PARAM_GROUP_LFO, "frequency", 0, LEVEL_RANGE),
   new ChoiceParameter(LFO_RANGE, PARAM_GROUP_LFO, "range", [ "low", "high"]),
-  new ChoiceParameter(LFO_SHAPE, PARAM_GROUP_LFO, "shape", [ "pul", "tri", "ran", "sin", "noi", "saw" ]), //[ "triangle", "sine", "sawtooth", "pulse", "random", "noise" ]),
+  new ChoiceParameter(LFO_SHAPE, PARAM_GROUP_LFO, "shape", 
+        [ "triangle", "sine", "sawtooth", "pulse", "random", "noise" ], 
+        "triangle", lfoShapeToNumber, numberToLfoShape),
   new LevelParameter(LFO_DEPTH, PARAM_GROUP_LFO, "depth", 0, LEVEL_RANGE),
   new LevelParameter(LFO_DELAY, PARAM_GROUP_LFO, "delay", 0, LEVEL_RANGE),
   new ChoiceParameter(LFO_DEST_TARGET, PARAM_GROUP_LFO, "destinationTarget", [ "ab", "a", "b"]),
