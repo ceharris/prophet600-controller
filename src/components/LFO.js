@@ -10,9 +10,10 @@ import {
   LFO_DEPTH,
   LFO_DELAY,
   LFO_DEST_TARGET,
-  LFO_DEST_FILTER,
   LFO_DEST_FREQUENCY,
   LFO_DEST_PULSE_WIDTH,
+  LFO_DEST_FILTER,
+  LFO_DEST_AMPLIFIER,
 } from "../parameters/names";
 
 const Frequency = LevelControl(LFO_FREQUENCY);
@@ -24,6 +25,7 @@ const DestinationTarget = SelectorControl(LFO_DEST_TARGET);
 const DestinationFrequency = ToggleControl(LFO_DEST_FREQUENCY);
 const DestinationPulseWidth = ToggleControl(LFO_DEST_PULSE_WIDTH);
 const DestinationFilter = ToggleControl(LFO_DEST_FILTER);
+const DestinationAmplifier = ToggleControl(LFO_DEST_AMPLIFIER);
 
 export default () => (
   <div id="lfo" className="control-group">
@@ -46,10 +48,12 @@ export default () => (
       <div id="lfo-dest-frequency"><DestinationFrequency/></div>
       <div id="lfo-dest-pw"><DestinationPulseWidth/></div>
       <div id="lfo-dest-filter"><DestinationFilter/></div>
+      <div id="lfo-dest-amplifier"><DestinationAmplifier/></div>
       <label htmlFor="lfo-dest-target">Target</label>
       <label htmlFor="lfo-dest-frequency">Frequency</label>
       <label htmlFor="lfo-dest-pw">Pulse Width</label>
       <label htmlFor="lfo-dest-filter">Filter</label>
+      <label htmlFor="lfo-dest-amplifier">Amplifier</label>
       <h2 className="subgroup-label-destination">Destination</h2>
     </div>
   </div>

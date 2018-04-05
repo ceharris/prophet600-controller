@@ -117,19 +117,19 @@ const setChoice = (parameterName, value, dispatch) => {
 const setLFODestinationMode = (value, dispatch) => {
   const lfoDestFrequency = Parameters.get(LFO_DEST_FREQUENCY);
   const lfoDestFilter = Parameters.get(LFO_DEST_FILTER);
-//  const lfoDestAmplifier = Parameters.get(LFO_DEST_AMPLIFIER);
+  const lfoDestAmplifier = Parameters.get(LFO_DEST_AMPLIFIER);
   const lfoDestPulseWidth = Parameters.get(LFO_DEST_PULSE_WIDTH);
   const lfoDestTarget = Parameters.get(LFO_DEST_TARGET);
   
   dispatch(synthSetFlag(lfoDestFrequency, 
     lfoDestFrequency.toModelValue(value & 0x1)));
  
-    dispatch(synthSetFlag(lfoDestFilter, 
-      lfoDestFilter.toModelValue(value & 0x2)));
+  dispatch(synthSetFlag(lfoDestFilter, 
+    lfoDestFilter.toModelValue(value & 0x2)));
  
-      // FIXME
-  // dispatch(synthSetFlag(lfoDestAmplifier, 
-  //   lfoDestAmplifier.toModelValue(value & 0x4)));
+  dispatch(synthSetFlag(lfoDestAmplifier, 
+    lfoDestAmplifier.toModelValue(value & 0x4)));
+
   dispatch(synthSetFlag(lfoDestPulseWidth, 
     lfoDestPulseWidth.toModelValue(value & 0x8)));
 

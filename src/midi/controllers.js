@@ -18,6 +18,7 @@ import {
   LFO_DEST_FREQUENCY,
   LFO_DEST_PULSE_WIDTH,
   LFO_DEST_FILTER,
+  LFO_DEST_AMPLIFIER,
   VIBRATO_FREQUENCY,
   VIBRATO_DEPTH,
   UNISON_TRACK,
@@ -116,10 +117,12 @@ const lfoDestinationModeTransformer = (state, parameter) => {
   const frequency = Parameters.get(LFO_DEST_FREQUENCY).toNumber(state);
   const pulseWidth = Parameters.get(LFO_DEST_PULSE_WIDTH).toNumber(state);
   const filter = Parameters.get(LFO_DEST_FILTER).toNumber(state);
-  return (((target & 0x3) << 3)
-       | ((frequency & 0x1) << 2)
-       | ((pulseWidth & 0x1) << 1)
-       | (filter & 0x1))
+  const amplifier = Parameters.get(LFO_DEST_AMPLIFIER).toNumber(state);
+  return (((target & 0x3) << 4)
+       | ((pulseWidth & 0x1) << 3)
+       | ((amplifier & 0x1) << 2)
+       | ((filter & 0x1) << 1)
+       | (frequency & 0x1))
        & 0x7f;
 };
 
@@ -137,6 +140,7 @@ const controllers = {
   [LFO_DEST_FREQUENCY]:               new StepController(59, 5, lfoDestinationModeTransformer),
   [LFO_DEST_PULSE_WIDTH]:             new StepController(59, 5, lfoDestinationModeTransformer),
   [LFO_DEST_FILTER]:                  new StepController(59, 5, lfoDestinationModeTransformer),
+  [LFO_DEST_AMPLIFIER]:               new StepController(59, 5, lfoDestinationModeTransformer),
   [VIBRATO_FREQUENCY]:                new ContinuousController(42, 106),
   [VIBRATO_DEPTH]:                    new ContinuousController(43, 107),
   [UNISON_TRACK]:                     new StepController(65, 1),
