@@ -121,10 +121,11 @@ class FlagParameter extends Parameter {
 
 class LevelParameter extends Parameter {
   constructor (id, group, name, min, max, zero, init) {
-    super(id, PARAM_TYPE_LEVEL, group, name, init !== undefined ? init : min);
+    super(id, PARAM_TYPE_LEVEL, group, name);
     this.min = min;
     this.max = max;
     this.zero = zero !== undefined ? zero : 0;
+    this.init = init !== undefined ? init : this.zero;
   }
   
   range() {
