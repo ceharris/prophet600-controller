@@ -63,6 +63,14 @@ import {
   GLOBAL_FREQUENCY_STEP,  
 } from "../parameters/names";
 
+const CTRL_BITS = 7;
+const CTRL_RANGE = 1 << CTRL_BITS;
+const CTRL_MASK = CTRL_RANGE - 1;
+
+const CC_BITS = 2*CTRL_BITS;
+const CC_RANGE = 1 << CC_BITS;
+const CC_MASK = CC_RANGE - 1;
+
 class Controller {
 
   send(midi, state, parameter) {
@@ -76,14 +84,15 @@ class ContinuousController extends Controller {
     super();
     this.coarseId = coarseId;
     this.fineId = fineId;
-    this.bits = bits === undefined ? 8 : bits;
+    this.bits = bits === undefined ? 
+      CC_BITS : Math.min(CC_BITS, bits);
   }
 
   async send(midi, state, parameter) {
-    const value = parameter.toControllerValue(state);
-    const word = (value << (14 - this.bits)) & 0x3fff;
-    await midi.controlChange(this.coarseId, (word >> 7) & 0x7f);
-    return midi.controlChange(this.fineId, word & 0x7f);
+    const value = CC_RANGE * (parameter.toNumber(state) / parameter.range());
+    const word = (value << (CC_BITS - this.bits)) & CC_MASK;
+    await midi.controlChange(this.coarseId, (word >> CTRL_BITS) & CTRL_MASK);
+    return midi.controlChange(this.fineId, word & CTRL_MASK);
   }
 }
 
@@ -91,22 +100,22 @@ class StepController extends Controller {
   constructor(id, bits, transformer) {
     super();
     this.id = id;
-    this.bits = bits;
+    this.bits = bits === undefined ? 1 : bits;
     this.transformer = transformer !== undefined ? 
-        transformer : (state, parameter) => parameter.toControllerValue(state);
+        transformer : (state, parameter) => parameter.toNumber(state);
   }
 
   async send(midi, state, parameter) {
     const value = this.transformer(state, parameter);
-    return midi.controlChange(this.id, (value << (7 - this.bits)) & 0x7f);
+    return midi.controlChange(this.id, (value << (CTRL_BITS - this.bits)) & CTRL_MASK);
   }
 }
 
 const lfoDestinationModeTransformer = (state, parameter) => {
-  const target = Parameters.get(LFO_DEST_TARGET).toControllerValue(state);
-  const frequency = Parameters.get(LFO_DEST_FREQUENCY).toControllerValue(state);
-  const pulseWidth = Parameters.get(LFO_DEST_PULSE_WIDTH).toControllerValue(state);
-  const filter = Parameters.get(LFO_DEST_FILTER).toControllerValue(state);
+  const target = Parameters.get(LFO_DEST_TARGET).toNumber(state);
+  const frequency = Parameters.get(LFO_DEST_FREQUENCY).toNumber(state);
+  const pulseWidth = Parameters.get(LFO_DEST_PULSE_WIDTH).toNumber(state);
+  const filter = Parameters.get(LFO_DEST_FILTER).toNumber(state);
   return (((target & 0x3) << 3)
        | ((frequency & 0x1) << 2)
        | ((pulseWidth & 0x1) << 1)

@@ -19,6 +19,7 @@ export default (parameterName) => {
       level: parameter.getState(synthState(state)),
       min: parameter.min,
       max: parameter.max,
+      zero: parameter.zero,
     }),
     dispatch => ({
       onActivate: () => dispatch(synthSelectKnob(parameter)),
