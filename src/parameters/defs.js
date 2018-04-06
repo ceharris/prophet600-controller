@@ -6,6 +6,7 @@ import {
   PARAM_TYPE_FLAG,
   PARAM_TYPE_LEVEL,
   PARAM_TYPE_CHOICE,
+  PARAM_TYPE_DATA,
 } from "./types";
 
 import { 
@@ -42,6 +43,7 @@ import {
   VIBRATO_DEPTH,
   UNISON_TRACK,
   UNISON_DETUNE,
+  UNISON_TRACK_PATTERN,
   OSCILLATOR_A_FREQUENCY,
   OSCILLATOR_A_SYNC,
   OSCILLATOR_A_SHAPE_SAWTOOTH,
@@ -170,6 +172,16 @@ class ChoiceParameter extends Parameter {
 
 }
 
+class DataParameter extends Parameter {
+  constructor(id, group, name, init) {
+    super(id, PARAM_TYPE_DATA, group, name, init);
+  }
+
+  toModelValue(data) {
+    return data;
+  }
+}
+
 const lfoShapeToNumber = (state, parameter) => {
   const selected = state[parameter.group][parameter.name];
   const index = parameter.choices.indexOf(selected);
@@ -205,6 +217,7 @@ const definitions = [
   new LevelParameter(VIBRATO_DEPTH, PARAM_GROUP_VIBRATO, "depth", 0, LEVEL_RANGE),
   new FlagParameter(UNISON_TRACK, PARAM_GROUP_UNISON, "track"),
   new LevelParameter(UNISON_DETUNE, PARAM_GROUP_UNISON, "detune", 0, LEVEL_RANGE),
+  new DataParameter(UNISON_TRACK_PATTERN, PARAM_GROUP_UNISON, "pattern", undefined),
   new LevelParameter(OSCILLATOR_A_FREQUENCY, PARAM_GROUP_OSCILLATOR_A, "frequency", 0, LEVEL_RANGE),
   new FlagParameter(OSCILLATOR_A_SYNC, PARAM_GROUP_OSCILLATOR_A, "sync"),
   new FlagParameter(OSCILLATOR_A_SHAPE_SAWTOOTH, PARAM_GROUP_OSCILLATOR_A, "shapeSawtooth"),

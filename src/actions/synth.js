@@ -53,12 +53,21 @@ export const synthSetLevel = (parameter, level) => ({
 });
 
 export const synthSetChoice = (parameter, selected) => ({
-  type: SYNTH_SET_DATA,
+  type: SYNTH_SET_CHOICE,
   payload: {
     parameter,
     selected,
   },
 });
+
+export const synthSetData = (parameter, data) => ({
+  type: SYNTH_SET_DATA,
+  payload: {
+    parameter,
+    data,
+  },
+});
+
 
 export const synthToggleFlag = (parameter) => ({
   type: SYNTH_TOGGLE_FLAG,
@@ -95,14 +104,6 @@ export const synthChangeChoice = (parameter, change) => ({
     parameter,
     change,
   }
-});
-
-export const synthSetData = (parameter, data) => ({
-  type: SYNTH_SET_CHOICE,
-  payload: {
-    parameter,
-    data,
-  },
 });
 
 export const synthNextChoice = (parameter) => ({

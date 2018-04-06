@@ -5,6 +5,10 @@
 import Parameters from "../parameters/defs";
 
 import {
+  PARAM_TYPE_DATA,
+} from "../parameters/types";
+
+import {
   POLYMOD_SOURCE_FILTER_ENV,
   POLYMOD_SOURCE_OSCILLATOR_B,
   POLYMOD_DEST_FREQUENCY_A,
@@ -196,6 +200,11 @@ class Controllers {
       console.log("MIDI unavailable");
     }
     
+    // can't set data parameters via Control Change messages
+    if (parameter.type === PARAM_TYPE_DATA) {
+      return;
+    }
+
     const id = parameter.id;
     if (!id || !controllers[id]) {
       throw new Error(`no controller for parameter ${id}`);

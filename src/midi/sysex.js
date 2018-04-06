@@ -59,6 +59,7 @@ import {
   PERFORMANCE_KEYBOARD_GLIDE,
   GLOBAL_FREQUENCY_STEP,
   GLOBAL_ARPEGGIATOR_CLOCK,
+  UNISON_TRACK_PATTERN,
 } from "../parameters/names";
 
 import {  
@@ -66,6 +67,7 @@ import {
   synthSetFlag,
   synthSetLevel,
   synthSetChoice,
+  synthSetData,
 } from "../actions/synth";
 
 import {
@@ -114,6 +116,11 @@ const setLevel = (parameterName, value, dispatch) => {
 const setChoice = (parameterName, value, dispatch) => {
   const parameter = Parameters.get(parameterName);
   dispatch(synthSetChoice(parameter, parameter.toModelValue(value)));
+};
+
+const setData = (parameterName, value, dispatch) => {
+  const parameter = Parameters.get(parameterName);
+  dispatch(synthSetData(parameter, parameter.toModelValue(value)));
 };
 
 const setLFODestinationMode = (value, dispatch) => {
@@ -198,7 +205,7 @@ const patchFieldDescriptors = [
   { type: U16, fn: (value, dispatch) => setLevel(GLOBAL_ARPEGGIATOR_CLOCK, value, dispatch) },
   { type: U8, fn: (value, dispatch) => setChoice(PERFORMANCE_MOD_WHEEL_TARGET, value, dispatch) },
   { type: U8, fn: (value, dispatch) => undefined },       // ignore padding
-  { type:  A + "6", fn: (value, dispatch) => undefined }, // ignore unison track pattern
+  { type:  A + "6", fn: (value, dispatch) => setData(UNISON_TRACK_PATTERN, value, dispatch) },
 ];
 
 export class SysEx {

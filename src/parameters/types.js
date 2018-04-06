@@ -25,3 +25,11 @@ export const PARAM_TYPE_LEVEL = "level";
  * the possible values. 
  */
 export const PARAM_TYPE_CHOICE = "choice";
+
+/**
+ * A _data_ parameter stores raw programming data from the synthesizer. 
+ * Parameters of this type do not have corresponding MIDI Control Change
+ * messages; they are only relay to/from the synth via MIDI System Exclusive
+ * messages.
+ */
+export const PARAM_TYPE_DATA = "data";
