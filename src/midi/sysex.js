@@ -58,6 +58,7 @@ import {
   PERFORMANCE_KEYBOARD_KEY_ASSIGN,
   PERFORMANCE_KEYBOARD_GLIDE,
   GLOBAL_FREQUENCY_STEP,
+  GLOBAL_ARPEGGIATOR_CLOCK,
 } from "../parameters/names";
 
 import {  
@@ -194,7 +195,7 @@ const patchFieldDescriptors = [
   { type: U16, fn: (value, dispatch) => setLevel(VIBRATO_FREQUENCY, value, dispatch) },
   { type: U16, fn: (value, dispatch) => setLevel(VIBRATO_DEPTH, value, dispatch) },
   { type: U16, fn: (value, dispatch) => setLevel(UNISON_DETUNE, value, dispatch) },
-  { type: U16, fn: (value, dispatch) => undefined },        // ignore clock
+  { type: U16, fn: (value, dispatch) => setLevel(GLOBAL_ARPEGGIATOR_CLOCK, value, dispatch) },
   { type: U8, fn: (value, dispatch) => setChoice(PERFORMANCE_MOD_WHEEL_TARGET, value, dispatch) },
   { type: U8, fn: (value, dispatch) => undefined },       // ignore padding
   { type:  A + "6", fn: (value, dispatch) => undefined }, // ignore unison track pattern

@@ -61,7 +61,8 @@ import {
   PERFORMANCE_MOD_WHEEL_TARGET,
   PERFORMANCE_KEYBOARD_KEY_ASSIGN,
   PERFORMANCE_KEYBOARD_GLIDE,
-  GLOBAL_FREQUENCY_STEP,  
+  GLOBAL_FREQUENCY_STEP,
+  GLOBAL_ARPEGGIATOR_CLOCK,
 } from "../parameters/names";
 
 const CTRL_BITS = 7;
@@ -112,7 +113,7 @@ class StepController extends Controller {
   }
 }
 
-const lfoDestinationModeTransformer = (state, parameter) => {
+export const lfoDestinationModeTransformer = (state) => {
   const target = Parameters.get(LFO_DEST_TARGET).toNumber(state);
   const frequency = Parameters.get(LFO_DEST_FREQUENCY).toNumber(state);
   const pulseWidth = Parameters.get(LFO_DEST_PULSE_WIDTH).toNumber(state);
@@ -184,6 +185,7 @@ const controllers = {
   [PERFORMANCE_KEYBOARD_KEY_ASSIGN]:  new StepController(66, 2),
   [PERFORMANCE_KEYBOARD_GLIDE]:       new ContinuousController(38, 102),
   [GLOBAL_FREQUENCY_STEP]:            new StepController(70, 2),
+  [GLOBAL_ARPEGGIATOR_CLOCK]:         new ContinuousController(45, 109),
 }
 
 class Controllers {

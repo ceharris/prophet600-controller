@@ -81,6 +81,7 @@ import {
   PERFORMANCE_KEYBOARD_KEY_ASSIGN,
   PERFORMANCE_KEYBOARD_GLIDE,
   GLOBAL_FREQUENCY_STEP,
+  GLOBAL_ARPEGGIATOR_CLOCK,
 } from "../parameters/names";
 
 const LEVEL_RANGE = 1 << 16;
@@ -243,6 +244,7 @@ const definitions = [
   new ChoiceParameter(PERFORMANCE_KEYBOARD_KEY_ASSIGN, PARAM_GROUP_PERFORMANCE, "keyboardKeyAssign", [ "last", "low", "high" ]),
   new LevelParameter(PERFORMANCE_KEYBOARD_GLIDE, PARAM_GROUP_PERFORMANCE, "keyboardGlide", 0, LEVEL_RANGE),
   new ChoiceParameter(GLOBAL_FREQUENCY_STEP, PARAM_GROUP_GLOBAL, "frequencyStep", [ "free", "semitone", "octave" ], "semitone"),
+  new LevelParameter(GLOBAL_ARPEGGIATOR_CLOCK, PARAM_GROUP_GLOBAL, "arpeggiatorClock", 0, LEVEL_RANGE),
 ];
 
 class Parameters {
