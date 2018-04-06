@@ -4,6 +4,7 @@ import {
   SYNTH_SET_FLAG,
   SYNTH_SET_LEVEL,
   SYNTH_SET_CHOICE,
+  SYNTH_SET_DATA,
   SYNTH_TOGGLE_FLAG,
   SYNTH_CHANGE_LEVEL,
   SYNTH_INCR_LEVEL,
@@ -19,6 +20,14 @@ const defaultState = {
   ...Parameters.defaultState(),
   ui: null,
 }
+
+const reduceSetData = (state, payload) => ({
+  ...state,
+  [payload.parameter.group]: {
+    ...state[payload.parameter.group],
+    [payload.parameter.name]: payload.data,
+  }
+});
 
 const reduceSelectKnob = (state, payload) => ({
   ...state,
@@ -158,6 +167,9 @@ export default (state = defaultState, action) => {
 
     case SYNTH_SET_CHOICE:
       return reduceSetChoice(state, action.payload);
+
+    case SYNTH_SET_DATA:
+      return reduceSetData(state, action.payload);
 
     case SYNTH_CHANGE_LEVEL:
       return reduceChangeLevel(state, action.payload);

@@ -5,6 +5,7 @@ import {
   SYNTH_SET_FLAG,
   SYNTH_SET_LEVEL,
   SYNTH_SET_CHOICE,
+  SYNTH_SET_DATA,
   SYNTH_TOGGLE_FLAG,
   SYNTH_CHANGE_LEVEL,
   SYNTH_INCR_LEVEL,
@@ -52,7 +53,7 @@ export const synthSetLevel = (parameter, level) => ({
 });
 
 export const synthSetChoice = (parameter, selected) => ({
-  type: SYNTH_SET_CHOICE,
+  type: SYNTH_SET_DATA,
   payload: {
     parameter,
     selected,
@@ -94,6 +95,14 @@ export const synthChangeChoice = (parameter, change) => ({
     parameter,
     change,
   }
+});
+
+export const synthSetData = (parameter, data) => ({
+  type: SYNTH_SET_CHOICE,
+  payload: {
+    parameter,
+    data,
+  },
 });
 
 export const synthNextChoice = (parameter) => ({
