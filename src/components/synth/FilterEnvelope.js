@@ -1,6 +1,6 @@
 import React from "react";
-import LevelControl from "./LevelControl";
-import SelectorControl from "./SelectorControl";
+import LevelControl from "../controls/LevelControl";
+import SelectorControl from "../controls/SelectorControl";
 
 import {
   FILTER_ENVELOPE_CURVE,
@@ -10,7 +10,7 @@ import {
   FILTER_ENVELOPE_SUSTAIN,
   FILTER_ENVELOPE_RELEASE,
   FILTER_ENVELOPE_VELOCITY,
-} from "../synth/defs";
+} from "../../synth/defs";
 
 const Curve = SelectorControl(FILTER_ENVELOPE_CURVE);
 const Rate = SelectorControl(FILTER_ENVELOPE_RATE);

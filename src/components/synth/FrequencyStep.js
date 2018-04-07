@@ -1,9 +1,9 @@
 import React from "react";
-import SelectorControl from "./SelectorControl";
+import SelectorControl from "../controls/SelectorControl";
 
 import {
   GLOBAL_FREQUENCY_STEP,  
-} from "../synth/defs";
+} from "../../synth/defs";
 
 const FrequencyStep = SelectorControl(GLOBAL_FREQUENCY_STEP);
 

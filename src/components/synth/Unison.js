@@ -1,11 +1,11 @@
 import React from "react";
-import LevelControl from "./LevelControl";
-import ToggleControl from "./ToggleControl";
+import LevelControl from "../controls/LevelControl";
+import ToggleControl from "../controls/ToggleControl";
 
 import {
   UNISON_TRACK,
   UNISON_DETUNE,
-} from "../synth/defs";
+} from "../../synth/defs";
 
 const Track = ToggleControl(UNISON_TRACK);
 const Detune = LevelControl(UNISON_DETUNE);

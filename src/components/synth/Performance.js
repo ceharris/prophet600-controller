@@ -1,6 +1,6 @@
 import React from "react";
-import LevelControl from "./LevelControl";
-import SelectorControl from "./SelectorControl";
+import LevelControl from "../controls/LevelControl";
+import SelectorControl from "../controls/SelectorControl";
 
 import {
   PERFORMANCE_BEND_WHEEL_RANGE,
@@ -9,7 +9,7 @@ import {
   PERFORMANCE_MOD_WHEEL_TARGET,
   PERFORMANCE_KEYBOARD_KEY_ASSIGN,
   PERFORMANCE_KEYBOARD_GLIDE,
-} from "../synth/defs";
+} from "../../synth/defs";
 
 const BendWheelRange = SelectorControl(PERFORMANCE_BEND_WHEEL_RANGE);
 const BendWheelTarget = SelectorControl(PERFORMANCE_BEND_WHEEL_TARGET);

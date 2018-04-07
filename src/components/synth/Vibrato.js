@@ -1,10 +1,10 @@
 import React from "react";
-import LevelControl from "./LevelControl";
+import LevelControl from "../controls/LevelControl";
 
 import {
   VIBRATO_FREQUENCY,
   VIBRATO_DEPTH,
-} from "../synth/defs";
+} from "../../synth/defs";
 
 const Frequency = LevelControl(VIBRATO_FREQUENCY);
 const Depth = LevelControl(VIBRATO_DEPTH);

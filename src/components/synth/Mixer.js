@@ -1,10 +1,10 @@
 import React from "react";
-import LevelControl from "./LevelControl";
+import LevelControl from "../controls/LevelControl";
 
 import {
   MIXER_OSCILLATOR_A_LEVEL,
   MIXER_OSCILLATOR_B_LEVEL,
-} from "../synth/defs";
+} from "../../synth/defs";
 
 const OscillatorALevel = LevelControl(MIXER_OSCILLATOR_A_LEVEL);
 const OscillatorBLevel = LevelControl(MIXER_OSCILLATOR_B_LEVEL);

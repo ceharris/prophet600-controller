@@ -1,8 +1,8 @@
 import { connect } from "react-redux";
-import { synthState } from "../reducers/reducers";
-import { synthToggleFlag } from "../reducers/actions/synth";
-import ToggleSwitch from "./ToggleSwitch";
-import Parameters from "../synth/parameters";
+import { synthState } from "../../reducers/reducers";
+import { synthToggleFlag } from "../../reducers/actions/synth";
+import ToggleSwitch from "../widgets/ToggleSwitch";
+import Parameters from "../../synth/parameters";
 
 export default (parameterName) => {
   const parameter = Parameters.get(parameterName);

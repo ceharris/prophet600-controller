@@ -1,13 +1,13 @@
 import React from "react";
-import LevelControl from "./LevelControl";
-import ToggleControl from "./ToggleControl";
+import LevelControl from "../controls/LevelControl";
+import ToggleControl from "../controls/ToggleControl";
 
 import {
   POLYMOD_SOURCE_FILTER_ENV,
   POLYMOD_SOURCE_OSCILLATOR_B,
   POLYMOD_DEST_FREQUENCY_A,
   POLYMOD_DEST_FILTER,
-} from "../synth/defs";
+} from "../../synth/defs";
 
 const SourceFilterEnv = LevelControl(POLYMOD_SOURCE_FILTER_ENV);
 const SourceOscillatorB = LevelControl(POLYMOD_SOURCE_OSCILLATOR_B);

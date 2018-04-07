@@ -1,6 +1,6 @@
 import React from "react";
 import { Provider } from "react-redux";
-import Synth from "./Synth";
+import Synth from "./synth/Synth";
 
 export default ({ store }) => {
   return (

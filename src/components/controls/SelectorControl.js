@@ -1,8 +1,8 @@
 import { connect } from "react-redux";
-import { synthState } from "../reducers/reducers";
+import { synthState } from "../../reducers/reducers";
 
-import SelectorKnob from "./SelectorKnob";
-import Parameters from "../synth/parameters";
+import SelectorKnob from "../widgets/SelectorKnob";
+import Parameters from "../../synth/parameters";
 
 import { 
   synthSelectKnob, 
@@ -10,7 +10,7 @@ import {
   synthChangeChoice,
   synthNextChoice,
   synthPrevChoice, 
-} from "../reducers/actions/synth";
+} from "../../reducers/actions/synth";
 
 export default (parameterName) => {
   const parameter = Parameters.get(parameterName);

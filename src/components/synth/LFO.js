@@ -1,7 +1,7 @@
 import React from "react";
-import LevelControl from "./LevelControl";
-import SelectorControl from "./SelectorControl";
-import ToggleControl from "./ToggleControl";
+import LevelControl from "../controls/LevelControl";
+import SelectorControl from "../controls/SelectorControl";
+import ToggleControl from "../controls/ToggleControl";
 
 import {
   LFO_FREQUENCY,
@@ -14,7 +14,7 @@ import {
   LFO_DEST_PULSE_WIDTH,
   LFO_DEST_FILTER,
   LFO_DEST_AMPLIFIER,
-} from "../synth/defs";
+} from "../../synth/defs";
 
 const Frequency = LevelControl(LFO_FREQUENCY);
 const Range = SelectorControl(LFO_RANGE);

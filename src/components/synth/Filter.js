@@ -1,13 +1,13 @@
 import React from "react";
-import LevelControl from "./LevelControl";
-import SelectorControl from "./SelectorControl";
+import LevelControl from "../controls/LevelControl";
+import SelectorControl from "../controls/SelectorControl";
 
 import {
   FILTER_CUTOFF,
   FILTER_RESONANCE,
   FILTER_ENVELOPE_AMOUNT,
   FILTER_KEYBOARD_TRACK,
-} from "../synth/defs";
+} from "../../synth/defs";
 
 const Cutoff = LevelControl(FILTER_CUTOFF);
 const Resonance = LevelControl(FILTER_RESONANCE);

@@ -1,6 +1,6 @@
 import React from "react";
-import LevelControl from "./LevelControl";
-import SelectorControl from "./SelectorControl";
+import LevelControl from "../controls/LevelControl";
+import SelectorControl from "../controls/SelectorControl";
 
 import {
   AMPLIFIER_ENVELOPE_CURVE,
@@ -10,7 +10,7 @@ import {
   AMPLIFIER_ENVELOPE_SUSTAIN,
   AMPLIFIER_ENVELOPE_RELEASE,
   AMPLIFIER_ENVELOPE_VELOCITY,
-} from "../synth/defs";
+} from "../../synth/defs";
 
 const Curve = SelectorControl(AMPLIFIER_ENVELOPE_CURVE);
 const Rate = SelectorControl(AMPLIFIER_ENVELOPE_RATE);

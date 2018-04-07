@@ -1,8 +1,8 @@
 import { connect } from "react-redux";
 
-import LevelKnob from "./LevelKnob";
-import Parameters from "../synth/parameters";
-import { synthState } from "../reducers/reducers";
+import LevelKnob from "../widgets/LevelKnob";
+import Parameters from "../../synth/parameters";
+import { synthState } from "../../reducers/reducers";
 
 import { 
   synthSelectKnob, 
@@ -10,7 +10,7 @@ import {
   synthChangeLevel, 
   synthIncrLevel,
   synthDecrLevel,
-} from "../reducers/actions/synth";
+} from "../../reducers/actions/synth";
 
 export default (parameterName) => {
   const parameter = Parameters.get(parameterName);
