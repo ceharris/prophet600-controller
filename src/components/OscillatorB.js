@@ -9,7 +9,7 @@ import {
   OSCILLATOR_B_SHAPE_TRIANGLE,
   OSCILLATOR_B_SHAPE_PULSE,
   OSCILLATOR_B_PULSE_WIDTH,
-} from "../parameters/defs";
+} from "../synth/defs";
 
 const Frequency = LevelControl(OSCILLATOR_B_FREQUENCY);
 const Fine = LevelControl(OSCILLATOR_B_FINE);

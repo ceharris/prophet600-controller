@@ -1,5 +1,5 @@
 import deepFreeze from "deep-freeze";
-import Parameters from "../parameters/parameters";
+import Parameters from "../synth/parameters";
 
 import synth from "./synth";
 

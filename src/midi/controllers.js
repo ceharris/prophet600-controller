@@ -2,7 +2,7 @@
  * Controller assignments for the Prophet 600 GliGli.
  */
 
-import Parameters from "../parameters/parameters";
+import Parameters from "../synth/parameters";
 
 import {
   POLYMOD_SOURCE_FILTER_ENV,
@@ -63,7 +63,7 @@ import {
   PERFORMANCE_KEYBOARD_GLIDE,
   GLOBAL_FREQUENCY_STEP,
   GLOBAL_ARPEGGIATOR_CLOCK,
-} from "../parameters/defs";
+} from "../synth/defs";
 
 const CTRL_BITS = 7;
 const CTRL_RANGE = 1 << CTRL_BITS;

@@ -10,7 +10,7 @@ import {
   AMPLIFIER_ENVELOPE_SUSTAIN,
   AMPLIFIER_ENVELOPE_RELEASE,
   AMPLIFIER_ENVELOPE_VELOCITY,
-} from "../parameters/defs";
+} from "../synth/defs";
 
 const Curve = SelectorControl(AMPLIFIER_ENVELOPE_CURVE);
 const Rate = SelectorControl(AMPLIFIER_ENVELOPE_RATE);

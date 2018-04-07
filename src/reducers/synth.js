@@ -14,7 +14,7 @@ import {
   SYNTH_PREV_CHOICE,
 } from "./actions/names";
 
-import Parameters from "../parameters/parameters";
+import Parameters from "../synth/parameters";
 
 const defaultState = {
   ...Parameters.defaultState(),

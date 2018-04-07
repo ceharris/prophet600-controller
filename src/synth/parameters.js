@@ -59,7 +59,7 @@ import {
   GLOBAL_FREQUENCY_STEP,
   GLOBAL_ARPEGGIATOR_CLOCK,
   UNISON_TRACK_PATTERN,
-} from "../parameters/defs";
+} from "./defs";
 
 import {
   FlagParameter,

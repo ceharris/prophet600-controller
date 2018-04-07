@@ -1,7 +1,7 @@
 import { connect } from "react-redux";
 
 import LevelKnob from "./LevelKnob";
-import Parameters from "../parameters/parameters";
+import Parameters from "../synth/parameters";
 import { synthState } from "../reducers/reducers";
 
 import { 

@@ -7,7 +7,7 @@ import {
   FILTER_RESONANCE,
   FILTER_ENVELOPE_AMOUNT,
   FILTER_KEYBOARD_TRACK,
-} from "../parameters/defs";
+} from "../synth/defs";
 
 const Cutoff = LevelControl(FILTER_CUTOFF);
 const Resonance = LevelControl(FILTER_RESONANCE);

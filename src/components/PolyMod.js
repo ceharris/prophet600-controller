@@ -7,7 +7,7 @@ import {
   POLYMOD_SOURCE_OSCILLATOR_B,
   POLYMOD_DEST_FREQUENCY_A,
   POLYMOD_DEST_FILTER,
-} from "../parameters/defs";
+} from "../synth/defs";
 
 const SourceFilterEnv = LevelControl(POLYMOD_SOURCE_FILTER_ENV);
 const SourceOscillatorB = LevelControl(POLYMOD_SOURCE_OSCILLATOR_B);

@@ -58,9 +58,9 @@ import {
   GLOBAL_FREQUENCY_STEP,
   GLOBAL_ARPEGGIATOR_CLOCK,
   UNISON_TRACK_PATTERN,
-} from "../parameters/defs";
+} from "../synth/defs";
 
-import Parameters from "../parameters/parameters";
+import Parameters from "../synth/parameters";
 
 
 import {  

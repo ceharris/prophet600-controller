@@ -14,7 +14,7 @@ import {
   LFO_DEST_PULSE_WIDTH,
   LFO_DEST_FILTER,
   LFO_DEST_AMPLIFIER,
-} from "../parameters/defs";
+} from "../synth/defs";
 
 const Frequency = LevelControl(LFO_FREQUENCY);
 const Range = SelectorControl(LFO_RANGE);

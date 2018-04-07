@@ -5,7 +5,7 @@ import ToggleControl from "./ToggleControl";
 import {
   UNISON_TRACK,
   UNISON_DETUNE,
-} from "../parameters/defs";
+} from "../synth/defs";
 
 const Track = ToggleControl(UNISON_TRACK);
 const Detune = LevelControl(UNISON_DETUNE);
