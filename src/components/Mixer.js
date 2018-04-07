@@ -4,7 +4,7 @@ import LevelControl from "./LevelControl";
 import {
   MIXER_OSCILLATOR_A_LEVEL,
   MIXER_OSCILLATOR_B_LEVEL,
-} from "../parameters/names";
+} from "../parameters/defs";
 
 const OscillatorALevel = LevelControl(MIXER_OSCILLATOR_A_LEVEL);
 const OscillatorBLevel = LevelControl(MIXER_OSCILLATOR_B_LEVEL);

@@ -1,6 +1,5 @@
 import deepFreeze from "deep-freeze";
-import Parameters from "../parameters/defs";
-import { PARAM_NAMES } from "../parameters/names";
+import Parameters from "../parameters/parameters";
 
 import synth from "./synth";
 
@@ -9,12 +8,6 @@ import {
   synthSetLevel,
   synthSetChoice,
 } from "../actions/synth";
-
-import { 
-  PARAM_TYPE_FLAG, 
-  PARAM_TYPE_LEVEL, 
-  PARAM_TYPE_CHOICE,
-} from "../parameters/types";
 
 // it("sets all flag parameters", () => {
 //   PARAM_NAMES.map(name => Parameters.get(name))

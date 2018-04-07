@@ -1,5 +1,3 @@
-import Parameters from "../parameters/defs";
-
 import { 
   POLYMOD_SOURCE_FILTER_ENV,
   POLYMOD_SOURCE_OSCILLATOR_B,
@@ -60,7 +58,10 @@ import {
   GLOBAL_FREQUENCY_STEP,
   GLOBAL_ARPEGGIATOR_CLOCK,
   UNISON_TRACK_PATTERN,
-} from "../parameters/names";
+} from "../parameters/defs";
+
+import Parameters from "../parameters/parameters";
+
 
 import {  
   synthSelectPatch,

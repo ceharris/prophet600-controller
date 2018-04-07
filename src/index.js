@@ -22,8 +22,7 @@ const store = createStore(reducers, applyMiddleware(logger, synthControlSender))
 MIDI.open({ sysex: true }).then((midi) => {
   Controllers.midi = midi;
   midi.channel = 0;
-  const sysEx = new SysEx(midi, store);
-  sysEx.sendPatchRequest(0);
+  new SysEx(midi, store);
 });
 
 

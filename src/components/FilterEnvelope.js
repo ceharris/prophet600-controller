@@ -10,7 +10,7 @@ import {
   FILTER_ENVELOPE_SUSTAIN,
   FILTER_ENVELOPE_RELEASE,
   FILTER_ENVELOPE_VELOCITY,
-} from "../parameters/names";
+} from "../parameters/defs";
 
 const Curve = SelectorControl(FILTER_ENVELOPE_CURVE);
 const Rate = SelectorControl(FILTER_ENVELOPE_RATE);

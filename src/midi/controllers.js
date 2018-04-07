@@ -2,11 +2,7 @@
  * Controller assignments for the Prophet 600 GliGli.
  */
 
-import Parameters from "../parameters/defs";
-
-import {
-  PARAM_TYPE_DATA,
-} from "../parameters/types";
+import Parameters from "../parameters/parameters";
 
 import {
   POLYMOD_SOURCE_FILTER_ENV,
@@ -67,7 +63,7 @@ import {
   PERFORMANCE_KEYBOARD_GLIDE,
   GLOBAL_FREQUENCY_STEP,
   GLOBAL_ARPEGGIATOR_CLOCK,
-} from "../parameters/names";
+} from "../parameters/defs";
 
 const CTRL_BITS = 7;
 const CTRL_RANGE = 1 << CTRL_BITS;
@@ -200,15 +196,8 @@ class Controllers {
       console.log("MIDI unavailable");
     }
     
-    // can't set data parameters via Control Change messages
-    if (parameter.type === PARAM_TYPE_DATA) {
-      return;
-    }
-
     const id = parameter.id;
-    if (!id || !controllers[id]) {
-      throw new Error(`no controller for parameter ${id}`);
-    }
+    if (!id || !controllers[id]) return;
     controllers[id].send(this.midi, state, parameter).catch(err => console.log(err));
   }
 }

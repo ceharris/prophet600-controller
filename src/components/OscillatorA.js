@@ -9,7 +9,7 @@ import {
   OSCILLATOR_A_SHAPE_TRIANGLE,
   OSCILLATOR_A_SHAPE_PULSE,
   OSCILLATOR_A_PULSE_WIDTH,
-} from "../parameters/names";
+} from "../parameters/defs";
 
 const Frequency = LevelControl(OSCILLATOR_A_FREQUENCY);
 const Sync = ToggleControl(OSCILLATOR_A_SYNC);

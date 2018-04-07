@@ -2,7 +2,7 @@ import { connect } from "react-redux";
 import { synthState } from "../reducers/reducers";
 
 import SelectorKnob from "./SelectorKnob";
-import Parameters from "../parameters/defs";
+import Parameters from "../parameters/parameters";
 
 import { 
   synthSelectKnob, 

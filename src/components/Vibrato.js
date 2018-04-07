@@ -4,7 +4,7 @@ import LevelControl from "./LevelControl";
 import {
   VIBRATO_FREQUENCY,
   VIBRATO_DEPTH,
-} from "../parameters/names";
+} from "../parameters/defs";
 
 const Frequency = LevelControl(VIBRATO_FREQUENCY);
 const Depth = LevelControl(VIBRATO_DEPTH);

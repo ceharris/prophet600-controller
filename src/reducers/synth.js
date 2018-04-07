@@ -1,4 +1,4 @@
-import Parameters from "../parameters/defs";
+import Parameters from "../parameters/parameters";
 
 import {
   SYNTH_SET_FLAG,

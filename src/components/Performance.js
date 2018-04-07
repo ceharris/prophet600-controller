@@ -9,7 +9,7 @@ import {
   PERFORMANCE_MOD_WHEEL_TARGET,
   PERFORMANCE_KEYBOARD_KEY_ASSIGN,
   PERFORMANCE_KEYBOARD_GLIDE,
-} from "../parameters/names";
+} from "../parameters/defs";
 
 const BendWheelRange = SelectorControl(PERFORMANCE_BEND_WHEEL_RANGE);
 const BendWheelTarget = SelectorControl(PERFORMANCE_BEND_WHEEL_TARGET);

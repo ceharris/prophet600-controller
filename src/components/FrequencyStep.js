@@ -3,7 +3,7 @@ import SelectorControl from "./SelectorControl";
 
 import {
   GLOBAL_FREQUENCY_STEP,  
-} from "../parameters/names";
+} from "../parameters/defs";
 
 const FrequencyStep = SelectorControl(GLOBAL_FREQUENCY_STEP);
 
