@@ -3,14 +3,7 @@ import { connect } from "react-redux";
 import LevelKnob from "../widgets/LevelKnob";
 import Parameters from "../../synth/parameters";
 import { synthState } from "../../reducers/reducers";
-
-import { 
-  synthSelectKnob, 
-  synthDeselectKnob, 
-  synthChangeLevel, 
-  synthIncrLevel,
-  synthDecrLevel,
-} from "../../reducers/actions/synth";
+import * as Actions from "../../reducers/actions/synth";
 
 export default (parameterName) => {
   const parameter = Parameters.get(parameterName);
@@ -22,11 +15,11 @@ export default (parameterName) => {
       zero: parameter.zero,
     }),
     dispatch => ({
-      onActivate: () => dispatch(synthSelectKnob(parameter)),
-      onDeactivate: () => dispatch(synthDeselectKnob(parameter)),
-      onChange: (event) => dispatch(synthChangeLevel(parameter, event.percentRotation)),
+      onActivate: () => dispatch(Actions.synthSelectKnob(parameter)),
+      onDeactivate: () => dispatch(Actions.synthDeselectKnob(parameter)),
+      onChange: (event) => dispatch(Actions.synthChangeLevel(parameter, event.percentRotation)),
       onClick: (event) => dispatch(event.altKey ? 
-          synthDecrLevel(parameter) : synthIncrLevel(parameter)),
+        Actions.synthDecrLevel(parameter) : Actions.synthIncrLevel(parameter)),
     }),
   )(LevelKnob);
 } 

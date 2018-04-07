@@ -1,8 +1,8 @@
 import { connect } from "react-redux";
 import { synthState } from "../../reducers/reducers";
-import { synthToggleFlag } from "../../reducers/actions/synth";
 import ToggleSwitch from "../widgets/ToggleSwitch";
 import Parameters from "../../synth/parameters";
+import * as Actions from "../../reducers/actions/synth";
 
 export default (parameterName) => {
   const parameter = Parameters.get(parameterName);
@@ -11,7 +11,7 @@ export default (parameterName) => {
       isOn: parameter.getState(synthState(state)),
     }),
     dispatch => ({
-      onChange: () => dispatch(synthToggleFlag(parameter))
+      onChange: () => dispatch(Actions.synthToggleFlag(parameter))
     }),
   )(ToggleSwitch);
 };

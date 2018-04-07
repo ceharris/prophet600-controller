@@ -1,12 +1,9 @@
-import {
-  MIDI_CONTROLLER_ENABLE,
-  MIDI_CONTROLLER_DISABLE,
-} from "./names";
+import * as Names from "./names";
 
 export const midiControllerDisable = () => ({
-  type: MIDI_CONTROLLER_DISABLE,
+  type: Names.MIDI_CONTROLLER_DISABLE,
 });
 
 export const midiControllerEnable = () => ({
-  type: MIDI_CONTROLLER_ENABLE,
+  type: Names.MIDI_CONTROLLER_ENABLE,
 });

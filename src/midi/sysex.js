@@ -1,18 +1,7 @@
 import Parameters from "../synth/parameters";
 import * as Names from "../synth/names";
-
-import {  
-  synthSelectPatch,
-  synthSetFlag,
-  synthSetLevel,
-  synthSetChoice,
-  synthSetData,
-} from "../reducers/actions/synth";
-
-import {
-  midiControllerDisable,
-  midiControllerEnable,
-} from "../reducers/actions/midi";
+import * as SynthActions from "../reducers/actions/synth";
+import * as MidiActions from "../reducers/actions/midi";
 
 import {
   SYSEX_STATUS,
@@ -44,22 +33,22 @@ const validateVersion = (value, dispatch) => {
 
 const setFlag = (parameterName, value, dispatch) => {
   const parameter = Parameters.get(parameterName);
-  dispatch(synthSetFlag(parameter, parameter.toModelValue(value)));
+  dispatch(SynthActions.synthSetFlag(parameter, parameter.toModelValue(value)));
 };
 
 const setLevel = (parameterName, value, dispatch) => {
   const parameter = Parameters.get(parameterName);
-  dispatch(synthSetLevel(parameter, parameter.toModelValue(value)));
+  dispatch(SynthActions.synthSetLevel(parameter, parameter.toModelValue(value)));
 };
 
 const setChoice = (parameterName, value, dispatch) => {
   const parameter = Parameters.get(parameterName);
-  dispatch(synthSetChoice(parameter, parameter.toModelValue(value)));
+  dispatch(SynthActions.synthSetChoice(parameter, parameter.toModelValue(value)));
 };
 
 const setData = (parameterName, value, dispatch) => {
   const parameter = Parameters.get(parameterName);
-  dispatch(synthSetData(parameter, parameter.toModelValue(value)));
+  dispatch(SynthActions.synthSetData(parameter, parameter.toModelValue(value)));
 };
 
 const setLFODestinationMode = (value, dispatch) => {
@@ -69,24 +58,24 @@ const setLFODestinationMode = (value, dispatch) => {
   const lfoDestPulseWidth = Parameters.get(Names.LFO_DEST_PULSE_WIDTH);
   const lfoDestTarget = Parameters.get(Names.LFO_DEST_TARGET);
   
-  dispatch(synthSetFlag(lfoDestFrequency, 
+  dispatch(SynthActions.synthSetFlag(lfoDestFrequency, 
     lfoDestFrequency.toModelValue(value & 0x1)));
  
-  dispatch(synthSetFlag(lfoDestFilter, 
+  dispatch(SynthActions.synthSetFlag(lfoDestFilter, 
     lfoDestFilter.toModelValue(value & 0x2)));
  
-  dispatch(synthSetFlag(lfoDestAmplifier, 
+  dispatch(SynthActions.synthSetFlag(lfoDestAmplifier, 
     lfoDestAmplifier.toModelValue(value & 0x4)));
 
-  dispatch(synthSetFlag(lfoDestPulseWidth, 
+  dispatch(SynthActions.synthSetFlag(lfoDestPulseWidth, 
     lfoDestPulseWidth.toModelValue(value & 0x8)));
 
-  dispatch(synthSetChoice(lfoDestTarget, 
+  dispatch(SynthActions.synthSetChoice(lfoDestTarget, 
         lfoDestTarget.toModelValue((value >> 4) & 0x3)));
 }
 
 const patchFieldDescriptors = [
-  { type: U8, fn: (value, dispatch) =>  dispatch(synthSelectPatch(value)) },
+  { type: U8, fn: (value, dispatch) =>  dispatch(SynthActions.synthSelectPatch(value)) },
   { type: U32, fn: validateMagic },
   { type: U8, fn: validateVersion },
   { type: U16, fn: (value, dispatch) => setLevel(Names.OSCILLATOR_A_FREQUENCY, value, dispatch) },
@@ -157,7 +146,7 @@ export class SysEx {
 
   loadPatch(patch) {
     let offset = 0;
-    this.store.dispatch(midiControllerDisable());
+    this.store.dispatch(MidiActions.midiControllerDisable());
     patchFieldDescriptors.forEach(descriptor => {
       let length = 0;
       let value = undefined;
@@ -178,7 +167,7 @@ export class SysEx {
       offset += length;
     });
     
-    this.store.dispatch(midiControllerEnable());
+    this.store.dispatch(MidiActions.midiControllerEnable());
   }
 
   decodePatch(encoded) {
