@@ -1,5 +1,3 @@
-import Parameters from "../parameters/parameters";
-
 import {
   SYNTH_SET_FLAG,
   SYNTH_SET_LEVEL,
@@ -14,7 +12,9 @@ import {
   SYNTH_UI_DESELECT_KNOB,
   SYNTH_NEXT_CHOICE,
   SYNTH_PREV_CHOICE,
-} from "../actions/names";
+} from "./actions/names";
+
+import Parameters from "../parameters/parameters";
 
 const defaultState = {
   ...Parameters.defaultState(),

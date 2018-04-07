@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 import { synthState } from "../reducers/reducers";
-import { synthToggleFlag } from "../actions/synth";
+import { synthToggleFlag } from "../reducers/actions/synth";
 import ToggleSwitch from "./ToggleSwitch";
 import Parameters from "../parameters/parameters";
 

@@ -7,7 +7,7 @@ import {
   synthToggleFlag,
   synthSetLevel,
   synthSetChoice,
-} from "../actions/synth";
+} from "./actions/synth";
 
 // it("sets all flag parameters", () => {
 //   PARAM_NAMES.map(name => Parameters.get(name))

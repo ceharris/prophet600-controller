@@ -1,7 +1,7 @@
 import {
   MIDI_CONTROLLER_DISABLE,
   MIDI_CONTROLLER_ENABLE,
-} from "../actions/names";
+} from "./actions/names";
 
 const defaultState = {
   enabled: true,

@@ -10,7 +10,7 @@ import {
   synthChangeLevel, 
   synthIncrLevel,
   synthDecrLevel,
-} from "../actions/synth";
+} from "../reducers/actions/synth";
 
 export default (parameterName) => {
   const parameter = Parameters.get(parameterName);

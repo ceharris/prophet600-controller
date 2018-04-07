@@ -69,12 +69,12 @@ import {
   synthSetLevel,
   synthSetChoice,
   synthSetData,
-} from "../actions/synth";
+} from "../reducers/actions/synth";
 
 import {
   midiControllerDisable,
   midiControllerEnable,
-} from "../actions/midi";
+} from "../reducers/actions/midi";
 
 import {
   SYSEX_STATUS,

@@ -10,7 +10,7 @@ import {
   synthChangeChoice,
   synthNextChoice,
   synthPrevChoice, 
-} from "../actions/synth";
+} from "../reducers/actions/synth";
 
 export default (parameterName) => {
   const parameter = Parameters.get(parameterName);
