@@ -1,19 +1,4 @@
-import {
-  SYNTH_SET_FLAG,
-  SYNTH_SET_LEVEL,
-  SYNTH_SET_CHOICE,
-  SYNTH_SET_DATA,
-  SYNTH_TOGGLE_FLAG,
-  SYNTH_CHANGE_LEVEL,
-  SYNTH_INCR_LEVEL,
-  SYNTH_DECR_LEVEL,
-  SYNTH_CHANGE_CHOICE,
-  SYNTH_UI_SELECT_KNOB,
-  SYNTH_UI_DESELECT_KNOB,
-  SYNTH_NEXT_CHOICE,
-  SYNTH_PREV_CHOICE,
-} from "./actions/names";
-
+import * as Names from "./actions/names";
 import Parameters from "../synth/parameters";
 
 const defaultState = {
@@ -150,43 +135,43 @@ export default (state = defaultState, action) => {
   if (action.payload === undefined) return state;
 
   switch (action.type) {
-    case SYNTH_TOGGLE_FLAG:
+    case Names.SYNTH_TOGGLE_FLAG:
       return reduceToggleFlag(state, action.payload);
 
-    case SYNTH_UI_SELECT_KNOB:
+    case Names.SYNTH_UI_SELECT_KNOB:
       return reduceSelectKnob(state, action.payload);
 
-    case SYNTH_UI_DESELECT_KNOB:
+    case Names.SYNTH_UI_DESELECT_KNOB:
       return reduceDeselectKnob(state, action.payload);
 
-    case SYNTH_SET_FLAG:
+    case Names.SYNTH_SET_FLAG:
       return reduceSetFlag(state, action.payload);
 
-    case SYNTH_SET_LEVEL:
+    case Names.SYNTH_SET_LEVEL:
       return reduceSetLevel(state, action.payload);
 
-    case SYNTH_SET_CHOICE:
+    case Names.SYNTH_SET_CHOICE:
       return reduceSetChoice(state, action.payload);
 
-    case SYNTH_SET_DATA:
+    case Names.SYNTH_SET_DATA:
       return reduceSetData(state, action.payload);
 
-    case SYNTH_CHANGE_LEVEL:
+    case Names.SYNTH_CHANGE_LEVEL:
       return reduceChangeLevel(state, action.payload);
 
-    case SYNTH_INCR_LEVEL:
+    case Names.SYNTH_INCR_LEVEL:
       return reduceIncrLevel(state, action.payload);
     
-    case SYNTH_DECR_LEVEL:
+    case Names.SYNTH_DECR_LEVEL:
       return reduceDecrLevel(state, action.payload);
 
-    case SYNTH_CHANGE_CHOICE:
+    case Names.SYNTH_CHANGE_CHOICE:
       return reduceChangeChoice(state, action.payload);
 
-    case SYNTH_NEXT_CHOICE:
+    case Names.SYNTH_NEXT_CHOICE:
       return reduceNextChoice(state, action.payload);
     
-    case SYNTH_PREV_CHOICE:
+    case Names.SYNTH_PREV_CHOICE:
       return reducePrevChoice(state, action.payload);
 
     default:
