@@ -1,11 +1,8 @@
 import React from "react";
 import SelectorControl from "../controls/SelectorControl";
+import * as Names from "../../synth/names";
 
-import {
-  GLOBAL_FREQUENCY_STEP,  
-} from "../../synth/defs";
-
-const FrequencyStep = SelectorControl(GLOBAL_FREQUENCY_STEP);
+const FrequencyStep = SelectorControl(Names.GLOBAL_FREQUENCY_STEP);
 
 export default () => (
   <div className="control-group no-border">

@@ -2,23 +2,15 @@ import React from "react";
 import LevelControl from "../controls/LevelControl";
 import SelectorControl from "../controls/SelectorControl";
 
-import {
-  FILTER_ENVELOPE_CURVE,
-  FILTER_ENVELOPE_RATE,
-  FILTER_ENVELOPE_ATTACK,
-  FILTER_ENVELOPE_DECAY,
-  FILTER_ENVELOPE_SUSTAIN,
-  FILTER_ENVELOPE_RELEASE,
-  FILTER_ENVELOPE_VELOCITY,
-} from "../../synth/defs";
+import * as Names from "../../synth/names";
 
-const Curve = SelectorControl(FILTER_ENVELOPE_CURVE);
-const Rate = SelectorControl(FILTER_ENVELOPE_RATE);
-const Attack = LevelControl(FILTER_ENVELOPE_ATTACK);
-const Decay = LevelControl(FILTER_ENVELOPE_DECAY);
-const Sustain = LevelControl(FILTER_ENVELOPE_SUSTAIN);
-const Release = LevelControl(FILTER_ENVELOPE_RELEASE);
-const Velocity = LevelControl(FILTER_ENVELOPE_VELOCITY);
+const Curve = SelectorControl(Names.FILTER_ENVELOPE_CURVE);
+const Rate = SelectorControl(Names.FILTER_ENVELOPE_RATE);
+const Attack = LevelControl(Names.FILTER_ENVELOPE_ATTACK);
+const Decay = LevelControl(Names.FILTER_ENVELOPE_DECAY);
+const Sustain = LevelControl(Names.FILTER_ENVELOPE_SUSTAIN);
+const Release = LevelControl(Names.FILTER_ENVELOPE_RELEASE);
+const Velocity = LevelControl(Names.FILTER_ENVELOPE_VELOCITY);
 
 export default () => (
   <div id="filter-envelope" className="envelope control-group">

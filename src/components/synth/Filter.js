@@ -2,17 +2,12 @@ import React from "react";
 import LevelControl from "../controls/LevelControl";
 import SelectorControl from "../controls/SelectorControl";
 
-import {
-  FILTER_CUTOFF,
-  FILTER_RESONANCE,
-  FILTER_ENVELOPE_AMOUNT,
-  FILTER_KEYBOARD_TRACK,
-} from "../../synth/defs";
+import * as Names from "../../synth/names";
 
-const Cutoff = LevelControl(FILTER_CUTOFF);
-const Resonance = LevelControl(FILTER_RESONANCE);
-const EnvelopeAmount = LevelControl(FILTER_ENVELOPE_AMOUNT);
-const KeyboardTrack = SelectorControl(FILTER_KEYBOARD_TRACK);
+const Cutoff = LevelControl(Names.FILTER_CUTOFF);
+const Resonance = LevelControl(Names.FILTER_RESONANCE);
+const EnvelopeAmount = LevelControl(Names.FILTER_ENVELOPE_AMOUNT);
+const KeyboardTrack = SelectorControl(Names.FILTER_KEYBOARD_TRACK);
 
 export default () => (
   <div id="filter" className="control-group">

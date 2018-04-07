@@ -1,22 +1,14 @@
 import React from "react";
 import LevelControl from "../controls/LevelControl";
 import ToggleControl from "../controls/ToggleControl";
+import * as Names from "../../synth/names";
 
-import {
-  OSCILLATOR_B_FREQUENCY,
-  OSCILLATOR_B_FINE,
-  OSCILLATOR_B_SHAPE_SAWTOOTH,
-  OSCILLATOR_B_SHAPE_TRIANGLE,
-  OSCILLATOR_B_SHAPE_PULSE,
-  OSCILLATOR_B_PULSE_WIDTH,
-} from "../../synth/defs";
-
-const Frequency = LevelControl(OSCILLATOR_B_FREQUENCY);
-const Fine = LevelControl(OSCILLATOR_B_FINE);
-const ShapeSawtooth = ToggleControl(OSCILLATOR_B_SHAPE_SAWTOOTH);
-const ShapeTriangle = ToggleControl(OSCILLATOR_B_SHAPE_TRIANGLE);
-const ShapePulse = ToggleControl(OSCILLATOR_B_SHAPE_PULSE);
-const PulseWidth = LevelControl(OSCILLATOR_B_PULSE_WIDTH);
+const Frequency = LevelControl(Names.OSCILLATOR_B_FREQUENCY);
+const Fine = LevelControl(Names.OSCILLATOR_B_FINE);
+const ShapeSawtooth = ToggleControl(Names.OSCILLATOR_B_SHAPE_SAWTOOTH);
+const ShapeTriangle = ToggleControl(Names.OSCILLATOR_B_SHAPE_TRIANGLE);
+const ShapePulse = ToggleControl(Names.OSCILLATOR_B_SHAPE_PULSE);
+const PulseWidth = LevelControl(Names.OSCILLATOR_B_PULSE_WIDTH);
 
 export default () => (
   <div id="oscillatorB" className="control-group">

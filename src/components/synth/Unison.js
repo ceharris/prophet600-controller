@@ -1,14 +1,10 @@
 import React from "react";
 import LevelControl from "../controls/LevelControl";
 import ToggleControl from "../controls/ToggleControl";
+import * as Names from "../../synth/names";
 
-import {
-  UNISON_TRACK,
-  UNISON_DETUNE,
-} from "../../synth/defs";
-
-const Track = ToggleControl(UNISON_TRACK);
-const Detune = LevelControl(UNISON_DETUNE);
+const Track = ToggleControl(Names.UNISON_TRACK);
+const Detune = LevelControl(Names.UNISON_DETUNE);
 
 export default () => (
   <div id="unison" className="control-group">

@@ -1,13 +1,9 @@
 import React from "react";
 import LevelControl from "../controls/LevelControl";
+import * as Names from "../../synth/names";
 
-import {
-  MIXER_OSCILLATOR_A_LEVEL,
-  MIXER_OSCILLATOR_B_LEVEL,
-} from "../../synth/defs";
-
-const OscillatorALevel = LevelControl(MIXER_OSCILLATOR_A_LEVEL);
-const OscillatorBLevel = LevelControl(MIXER_OSCILLATOR_B_LEVEL);
+const OscillatorALevel = LevelControl(Names.MIXER_OSCILLATOR_A_LEVEL);
+const OscillatorBLevel = LevelControl(Names.MIXER_OSCILLATOR_B_LEVEL);
 
 export default () => (
   <div id="mixer" className="mixer-panel control-group">

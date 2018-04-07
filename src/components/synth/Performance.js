@@ -1,22 +1,14 @@
 import React from "react";
 import LevelControl from "../controls/LevelControl";
 import SelectorControl from "../controls/SelectorControl";
+import * as Names from "../../synth/names";
 
-import {
-  PERFORMANCE_BEND_WHEEL_RANGE,
-  PERFORMANCE_BEND_WHEEL_TARGET,
-  PERFORMANCE_MOD_WHEEL_RANGE,
-  PERFORMANCE_MOD_WHEEL_TARGET,
-  PERFORMANCE_KEYBOARD_KEY_ASSIGN,
-  PERFORMANCE_KEYBOARD_GLIDE,
-} from "../../synth/defs";
-
-const BendWheelRange = SelectorControl(PERFORMANCE_BEND_WHEEL_RANGE);
-const BendWheelTarget = SelectorControl(PERFORMANCE_BEND_WHEEL_TARGET);
-const ModWheelRange = SelectorControl(PERFORMANCE_MOD_WHEEL_RANGE);
-const ModWheelTarget = SelectorControl(PERFORMANCE_MOD_WHEEL_TARGET);
-const KeyboardKeyAssign = SelectorControl(PERFORMANCE_KEYBOARD_KEY_ASSIGN);
-const KeyboardGlide = LevelControl(PERFORMANCE_KEYBOARD_GLIDE);
+const BendWheelRange = SelectorControl(Names.PERFORMANCE_BEND_WHEEL_RANGE);
+const BendWheelTarget = SelectorControl(Names.PERFORMANCE_BEND_WHEEL_TARGET);
+const ModWheelRange = SelectorControl(Names.PERFORMANCE_MOD_WHEEL_RANGE);
+const ModWheelTarget = SelectorControl(Names.PERFORMANCE_MOD_WHEEL_TARGET);
+const KeyboardKeyAssign = SelectorControl(Names.PERFORMANCE_KEYBOARD_KEY_ASSIGN);
+const KeyboardGlide = LevelControl(Names.PERFORMANCE_KEYBOARD_GLIDE);
 
 export default () => (
   <div id="performance" className="control-group">

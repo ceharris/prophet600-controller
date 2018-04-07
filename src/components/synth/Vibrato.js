@@ -1,13 +1,9 @@
 import React from "react";
 import LevelControl from "../controls/LevelControl";
+import * as Names from "../../synth/names";
 
-import {
-  VIBRATO_FREQUENCY,
-  VIBRATO_DEPTH,
-} from "../../synth/defs";
-
-const Frequency = LevelControl(VIBRATO_FREQUENCY);
-const Depth = LevelControl(VIBRATO_DEPTH);
+const Frequency = LevelControl(Names.VIBRATO_FREQUENCY);
+const Depth = LevelControl(Names.VIBRATO_DEPTH);
 
 export default () => (
   <div id="vibrato" className="control-group">

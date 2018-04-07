@@ -2,23 +2,15 @@ import React from "react";
 import LevelControl from "../controls/LevelControl";
 import SelectorControl from "../controls/SelectorControl";
 
-import {
-  AMPLIFIER_ENVELOPE_CURVE,
-  AMPLIFIER_ENVELOPE_RATE,
-  AMPLIFIER_ENVELOPE_ATTACK,
-  AMPLIFIER_ENVELOPE_DECAY,
-  AMPLIFIER_ENVELOPE_SUSTAIN,
-  AMPLIFIER_ENVELOPE_RELEASE,
-  AMPLIFIER_ENVELOPE_VELOCITY,
-} from "../../synth/defs";
+import * as Names from "../../synth/names";
 
-const Curve = SelectorControl(AMPLIFIER_ENVELOPE_CURVE);
-const Rate = SelectorControl(AMPLIFIER_ENVELOPE_RATE);
-const Attack = LevelControl(AMPLIFIER_ENVELOPE_ATTACK);
-const Decay = LevelControl(AMPLIFIER_ENVELOPE_DECAY);
-const Sustain = LevelControl(AMPLIFIER_ENVELOPE_SUSTAIN);
-const Release = LevelControl(AMPLIFIER_ENVELOPE_RELEASE);
-const Velocity = LevelControl(AMPLIFIER_ENVELOPE_VELOCITY);
+const Curve = SelectorControl(Names.AMPLIFIER_ENVELOPE_CURVE);
+const Rate = SelectorControl(Names.AMPLIFIER_ENVELOPE_RATE);
+const Attack = LevelControl(Names.AMPLIFIER_ENVELOPE_ATTACK);
+const Decay = LevelControl(Names.AMPLIFIER_ENVELOPE_DECAY);
+const Sustain = LevelControl(Names.AMPLIFIER_ENVELOPE_SUSTAIN);
+const Release = LevelControl(Names.AMPLIFIER_ENVELOPE_RELEASE);
+const Velocity = LevelControl(Names.AMPLIFIER_ENVELOPE_VELOCITY);
 
 export default () => (
   <div id="amplifier-envelope" className="envelope control-group">

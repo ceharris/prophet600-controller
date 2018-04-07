@@ -2,30 +2,18 @@ import React from "react";
 import LevelControl from "../controls/LevelControl";
 import SelectorControl from "../controls/SelectorControl";
 import ToggleControl from "../controls/ToggleControl";
+import * as Names from "../../synth/names";
 
-import {
-  LFO_FREQUENCY,
-  LFO_RANGE,
-  LFO_SHAPE,
-  LFO_DEPTH,
-  LFO_DELAY,
-  LFO_DEST_TARGET,
-  LFO_DEST_FREQUENCY,
-  LFO_DEST_PULSE_WIDTH,
-  LFO_DEST_FILTER,
-  LFO_DEST_AMPLIFIER,
-} from "../../synth/defs";
-
-const Frequency = LevelControl(LFO_FREQUENCY);
-const Range = SelectorControl(LFO_RANGE);
-const Shape = SelectorControl(LFO_SHAPE);
-const Depth = LevelControl(LFO_DEPTH);
-const Delay = LevelControl(LFO_DELAY);
-const DestinationTarget = SelectorControl(LFO_DEST_TARGET);
-const DestinationFrequency = ToggleControl(LFO_DEST_FREQUENCY);
-const DestinationPulseWidth = ToggleControl(LFO_DEST_PULSE_WIDTH);
-const DestinationFilter = ToggleControl(LFO_DEST_FILTER);
-const DestinationAmplifier = ToggleControl(LFO_DEST_AMPLIFIER);
+const Frequency = LevelControl(Names.LFO_FREQUENCY);
+const Range = SelectorControl(Names.LFO_RANGE);
+const Shape = SelectorControl(Names.LFO_SHAPE);
+const Depth = LevelControl(Names.LFO_DEPTH);
+const Delay = LevelControl(Names.LFO_DELAY);
+const DestinationTarget = SelectorControl(Names.LFO_DEST_TARGET);
+const DestinationFrequency = ToggleControl(Names.LFO_DEST_FREQUENCY);
+const DestinationPulseWidth = ToggleControl(Names.LFO_DEST_PULSE_WIDTH);
+const DestinationFilter = ToggleControl(Names.LFO_DEST_FILTER);
+const DestinationAmplifier = ToggleControl(Names.LFO_DEST_AMPLIFIER);
 
 export default () => (
   <div id="lfo" className="control-group">
