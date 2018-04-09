@@ -11,12 +11,12 @@ const SCALE = 1;
 const TEMPLATE_TEXT = 
     (Number("8".repeat(PRECISION + 1)) / Math.pow(10, SCALE)).toFixed(SCALE);
 
-const textForScaledLevel= (rotation) => {
-  if (rotation === undefined) return "!Udf!";
-  if (Number.isNaN(rotation)) return "!NaN!";
-  let value = (Math.round(rotation * Math.pow(10, PRECISION)) / 
-      Math.pow(10, SCALE)).toFixed(SCALE);
-
+const textForScaledLevel = (scaledLevel, scaledZero) => {
+  const displayLevel = scaledLevel - scaledZero;
+  if (displayLevel === undefined) return "!Udf!";
+  if (Number.isNaN(displayLevel)) return "!NaN!";
+  const value = (Math.round(displayLevel * Math.pow(10, PRECISION))
+      * 1/Math.pow(10, SCALE)).toFixed(SCALE);
   const text = "!!!!!" + value;
   return text.substring(text.length - 5);    
 };
@@ -25,7 +25,7 @@ export default ({ level, min, max, zero,
     onClick, onActivate, onDeactivate, onChange }) => {
   const scaledLevel = level === max ? 1.0 : level / (max - min + 1);
   const scaledZero = zero / (max - min + 1);
-  const text = textForScaledLevel(scaledLevel - scaledZero);
+  const text = textForScaledLevel(scaledLevel, scaledZero);
   return (
     <Knob percentRotation={scaledLevel} onClick={onClick}
         onActivate={onActivate} onDeactivate={onDeactivate} onChange={onChange}>
