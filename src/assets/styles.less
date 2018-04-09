@@ -1,6 +1,17 @@
 @import "./fonts";
 @import "./bootstrap";
 
+@color-panel-background: rgb(36, 36, 36);
+@color-logo-text: #fdf8ec;
+@color-control-label: #fdf8ec;
+@color-control-group-heading: #fdf8ec;
+
+@color-control-group-border: #97938a;
+
+@color-dseg-on: rgb(200, 0, 0);
+@color-dseg-off: rgba(200, 0, 0, 0.3);
+@color-dseg-glass: rgba(0, 0, 0, 0);
+
 @color-knob-outer-fill-stop0: rgb(40, 40, 40);
 @color-knob-outer-fill-stop1: rgb(70, 70, 70);
 @color-knob-inner-fill-stop0: rgb(20, 20, 20);
@@ -26,15 +37,11 @@
 @color-toggle-led-bulb-off-stop0: rgb(127, 0, 0);
 @color-toggle-led-bulb-off-stop1: rgb(15, 0, 0);
 @color-toggle-led-bulb-on-stop0: rgba(255, 0, 0, 1);
-@color-toggle-led-bulb-on-stop1: rgba(143, 0, 0, 1);
+@color-toggle-led-bulb-on-stop1: rgb(184, 3, 3);
 
 @color-toggle-led-glint-stop0: rgba(239, 223, 223, 1.0);
 @color-toggle-led-glint-stop1: rgba(239, 0, 0, 0.20);
 @color-toggle-led-glint-stop2: rgba(239, 223, 223, 0);
-
-html {
-  font-family: @font-family-base;
-}
 
 #g-outer {
   .stop0 {
@@ -125,7 +132,7 @@ html {
     font-family: dseg7-classic;
     font-style: oblique;
     stroke: none;
-    fill: rgb(200, 0, 0);
+    fill: @color-dseg-on;
     user-select: none;
 
   }
@@ -135,7 +142,7 @@ html {
   }
   
   .display.display-bg {
-    fill: rgba(200, 0, 0, 0.3);
+    fill: @color-dseg-off;
   }
 
   .pointer {
@@ -143,7 +150,7 @@ html {
   }
 
   .glass {
-    fill: rgba(0, 0, 0, 0);
+    fill: @color-dseg-glass;
     stroke: none;
   }
 }
@@ -185,20 +192,33 @@ html {
   }
 }
 
+html {
+  font-family: @font-family-base;
+}
+
+body {
+  background-color: #777777;
+}
+
+#root {
+  padding-top: 15px;
+}
+
 .synth-container {
   display: grid;
   grid-template-columns: 5px 1200px 5px;
-  grid-template-rows: 5px 700px 5px;
-  background-color: #333;
+  grid-template-rows: 5px 650px 45px 5px;
+  background-color: @color-panel-background;
   border-radius: 15px;
   width: 1210px;
-  height: 660px;
+  height: 705px;
+  margin: 0 auto;
 }
 
 .synth {
   display: grid;
   grid-template-columns: repeat(12, 100px);
-  grid-template-rows: repeat(12, 65px);
+  grid-template-rows: repeat(10, 65px);
   grid-column: 2;
   grid-row: 2;
   width: 1200px;
@@ -207,10 +227,42 @@ html {
   cursor: default;
 }
 
+.logos {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  grid-column: 2;
+  grid-row: 3;
+  width: 1200;
+  height: 56;
+  color: @color-logo-text;
+}
+
+.sci-logo {
+  width: 125px;
+  font-family: "Stop", Georgia;
+  fill: @color-logo-text;
+  .top {
+    stroke: none;
+    font-size: 24px; 
+  }
+  .bottom {
+    stroke: none;
+    font-size: 22px;
+  }
+}
+
+.prophet-logo {
+  width: 250px;
+  font-size: 56px; 
+  font-family: "Uncial", Georgia;
+  stroke: none;
+  fill: @color-logo-text;
+}
+
 .synth .control-group {
-  border: 1px solid #777;
+  border: 1px solid @color-control-group-border;
   border-radius: 15px;
-  background-color: #333;
   text-align: center;
 
   .no-border {
@@ -219,11 +271,11 @@ html {
 }
 
 .control-group > h1 {
-  color: #A0A0A0;
+  color: @color-control-group-heading;
   font-size: 1.35em;
   margin-top: 0;
   margin-bottom: 0;
-  margin-left: 8px;
+  margin-left: 0px;
   text-align: center;
 }
 
@@ -232,8 +284,8 @@ html {
 }
 
 .control-group h2 {
-  color: #A0A0A0;
-  border-top: 1px solid #808080;
+  color: @color-control-group-heading;
+  border-top: 1px solid @color-control-group-border;
   font-size: 1.0em;
   margin-top: 0;
   margin-bottom: 0;
@@ -244,7 +296,7 @@ html {
 }
 
 .control-group label {
-  color: white;
+  color: @color-control-label;
 }
 
 input[type="range"] {

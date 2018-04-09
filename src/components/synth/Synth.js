@@ -11,6 +11,8 @@ import Filter from "./Filter";
 import FilterEnvelope from "./FilterEnvelope";
 import Amplifier from "./Amplifier";
 import Performance from "./Performance";
+import P600Logo from "./P600Logo";
+import SCILogo from "./SCILogo";
 
 export default ({ onMouseMove, onMouseUp, onMouseLeave }) => (
   <div className="synth-container" onMouseMove={onMouseMove}
@@ -30,6 +32,10 @@ export default ({ onMouseMove, onMouseUp, onMouseLeave }) => (
       <FilterEnvelope/>
       <Amplifier/>
       <Performance/>
+    </div>
+    <div className="logos">
+      <SCILogo/>
+      <P600Logo/>
     </div>
   </div>
 );
