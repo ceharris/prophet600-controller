@@ -35,6 +35,43 @@ const numberToLfoShape = (number, parameter) => {
   const count = parameter.choices.length;
   const index = (number >> 1) + (1 - (number & 1))*(count / 2);
   return parameter.choices[index];
+};
+
+const envelopeRateToNumber = (state, parameter) => {
+  const selected = state[parameter.group][parameter.name];
+  const index = parameter.choices.indexOf(selected);
+  const count = parameter.choices.length;
+  return count - index - 1;
+};
+
+const numberToEnvelopeRate = (number, parameter) => {
+  const count = parameter.choices.length;
+  return parameter.choices[count - number - 1];
+}
+
+const modWheelRangeToNumber = (state, parameter) => {
+  const selected = state[parameter.group][parameter.name];
+  switch (selected) {
+    case "max":
+      return 0;
+    case "high":
+      return 1;
+    case "low":
+      return 3;
+    case "min":
+      return 5;
+    default:
+      throw new Error(`unmapped mod wheel range '${selected}'`);
+  }
+}
+
+const numberToModWheelRange = (number, parameter) => {
+  if (number === 0) return "max";
+  const index = Math.round(number / 2);
+  if (index < parameter.choices.length - 1) {
+    return parameter.choices[parameter.choices.length - index - 1];
+  }
+  return "high";
 }
 
 const parameters = [
@@ -78,22 +115,25 @@ const parameters = [
   new LevelParameter(Names.FILTER_ENVELOPE_AMOUNT, GROUP_FILTER, "envelopeAmount", 0, LEVEL_RANGE, CENTER_LEVEL),
   new ChoiceParameter(Names.FILTER_KEYBOARD_TRACK, GROUP_FILTER, "keyboardTrack", [ "off", "1/2", "full"]), 
   new ChoiceParameter(Names.FILTER_ENVELOPE_CURVE, GROUP_FILTER, "curve", [ "linear", "exponential"]),
-  new ChoiceParameter(Names.FILTER_ENVELOPE_RATE, GROUP_FILTER, "rate", [ "fast", "slow"]),
+  new ChoiceParameter(Names.FILTER_ENVELOPE_RATE, GROUP_FILTER, "rate", 
+      [ "slow", "fast" ], "fast", envelopeRateToNumber, numberToEnvelopeRate),
   new LevelParameter(Names.FILTER_ENVELOPE_ATTACK, GROUP_FILTER, "attack", 0, LEVEL_RANGE),
   new LevelParameter(Names.FILTER_ENVELOPE_DECAY, GROUP_FILTER, "decay", 0, LEVEL_RANGE),
   new LevelParameter(Names.FILTER_ENVELOPE_SUSTAIN, GROUP_FILTER, "sustain", 0, LEVEL_RANGE),
   new LevelParameter(Names.FILTER_ENVELOPE_RELEASE, GROUP_FILTER, "release", 0, LEVEL_RANGE),
   new LevelParameter(Names.FILTER_ENVELOPE_VELOCITY, GROUP_FILTER, "velocity", 0, LEVEL_RANGE),
   new ChoiceParameter(Names.AMPLIFIER_ENVELOPE_CURVE, GROUP_AMPLIFIER, "curve", [ "linear", "exponential"]),
-  new ChoiceParameter(Names.AMPLIFIER_ENVELOPE_RATE, GROUP_AMPLIFIER, "rate", [ "fast", "slow"]),
+  new ChoiceParameter(Names.AMPLIFIER_ENVELOPE_RATE, GROUP_AMPLIFIER, "rate", 
+      [ "slow", "fast" ], "fast", envelopeRateToNumber, numberToEnvelopeRate),
   new LevelParameter(Names.AMPLIFIER_ENVELOPE_ATTACK, GROUP_AMPLIFIER, "attack", 0, LEVEL_RANGE),
   new LevelParameter(Names.AMPLIFIER_ENVELOPE_DECAY, GROUP_AMPLIFIER, "decay", 0, LEVEL_RANGE),
   new LevelParameter(Names.AMPLIFIER_ENVELOPE_SUSTAIN, GROUP_AMPLIFIER, "sustain", 0, LEVEL_RANGE),
   new LevelParameter(Names.AMPLIFIER_ENVELOPE_RELEASE, GROUP_AMPLIFIER, "release", 0, LEVEL_RANGE),
   new LevelParameter(Names.AMPLIFIER_ENVELOPE_VELOCITY, GROUP_AMPLIFIER, "velocity", 0, LEVEL_RANGE),
-  new ChoiceParameter(Names.PERFORMANCE_BEND_WHEEL_RANGE, GROUP_PERFORMANCE, "bendWheelRange", [ "2nd", "3rd", "5th", "octave" ]),
+  new ChoiceParameter(Names.PERFORMANCE_BEND_WHEEL_RANGE, GROUP_PERFORMANCE, "bendWheelRange", [ "off", "mi2", "ma2", "mi3", "ma3", "p4", "tri", "p5", "mi6", "ma6", "mi7", "ma7", "octave" ]),
   new ChoiceParameter(Names.PERFORMANCE_BEND_WHEEL_TARGET, GROUP_PERFORMANCE, "bendWheelTarget", [ "off", "pitch", "filter", "volume" ]),
-  new ChoiceParameter(Names.PERFORMANCE_MOD_WHEEL_RANGE, GROUP_PERFORMANCE, "modWheelRange", [ "min", "low", "high", "max" ]),
+  new ChoiceParameter(Names.PERFORMANCE_MOD_WHEEL_RANGE, GROUP_PERFORMANCE, "modWheelRange", 
+      [ "min", "low", "high", "max" ], "max", modWheelRangeToNumber, numberToModWheelRange),
   new ChoiceParameter(Names.PERFORMANCE_MOD_WHEEL_TARGET, GROUP_PERFORMANCE, "modWheelTarget", [ "lfo", "vibrato" ]),
   new ChoiceParameter(Names.PERFORMANCE_KEYBOARD_KEY_ASSIGN, GROUP_PERFORMANCE, "keyboardKeyAssign", [ "last", "low", "high" ]),
   new LevelParameter(Names.PERFORMANCE_KEYBOARD_GLIDE, GROUP_PERFORMANCE, "keyboardGlide", 0, LEVEL_RANGE),
