@@ -5,19 +5,15 @@ import { SysEx } from "./midi/sysex";
 import Controllers from "./midi/controllers";
 
 import { createStore, applyMiddleware } from "redux";
+import { createLogger } from "redux-logger";
 import synthControlSender from "./middleware/synthControlSender";
 import reducers from "./reducers/reducers";
 import App from "./components/App";
 
 import "./assets/styles.css";
 
-const logger = store => next => action => {
-  const result = next(action);
-  console.log("dispatched", action, "and derived new state", store.getState());
-  return result;
-}
-
-const store = createStore(reducers, applyMiddleware(logger, synthControlSender));
+const store = createStore(reducers, 
+    applyMiddleware(synthControlSender, createLogger({ collapsed: true })));
 
 MIDI.open({ sysex: true }).then((midi) => {
   Controllers.midi = midi;
