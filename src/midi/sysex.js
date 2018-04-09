@@ -185,7 +185,7 @@ export class SysEx {
       decoded[4*i + 3] |= (b & 8) << 4;
     }
     
-    return decoded;
+    return Uint8Array.from(decoded);
   }
 
   handleSystemMessage(event) {
