@@ -14,13 +14,6 @@ export const synthDeselectKnob = (parameter) => ({
   }
 });
 
-export const synthSelectPatch = (number) => ({
-  type: Names.SYNTH_UI_SELECT_PATCH,
-  payload: {
-    number,
-  }
-});
-
 export const synthSetFlag = (parameter, flag) => ({
   type: Names.SYNTH_SET_FLAG,
   payload: {

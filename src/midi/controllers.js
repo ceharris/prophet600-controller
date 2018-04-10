@@ -3,6 +3,7 @@
  */
 
 import Parameters from "../synth/parameters";
+import MIDI from "./MIDI";
 import * as Names from "../synth/names";
 
 const CTRL_BITS = 7;
@@ -15,7 +16,7 @@ const CC_MASK = CC_RANGE - 1;
 
 class Controller {
 
-  send(midi, state, parameter) {
+  send(state, parameter) {
     throw new Error("controller " + this + " doesn't implement send");
   }
 
@@ -30,11 +31,11 @@ class ContinuousController extends Controller {
       CC_BITS : Math.min(CC_BITS, bits);
   }
 
-  async send(midi, state, parameter) {
+  send(state, parameter) {
     const value = CC_RANGE * (parameter.toNumber(state) / parameter.range());
     const word = (value << (CC_BITS - this.bits)) & CC_MASK;
-    await midi.controlChange(this.coarseId, (word >> CTRL_BITS) & CTRL_MASK);
-    return midi.controlChange(this.fineId, word & CTRL_MASK);
+    MIDI.controlChange(this.coarseId, (word >> CTRL_BITS) & CTRL_MASK);
+    MIDI.controlChange(this.fineId, word & CTRL_MASK);
   }
 }
 
@@ -47,9 +48,9 @@ class StepController extends Controller {
         transformer : (state, parameter) => parameter.toNumber(state);
   }
 
-  async send(midi, state, parameter) {
+  send(state, parameter) {
     const value = this.transformer(state, parameter);
-    return midi.controlChange(this.id, (value << (CTRL_BITS - this.bits)) & CTRL_MASK);
+    MIDI.controlChange(this.id, (value << (CTRL_BITS - this.bits)) & CTRL_MASK);
   }
 }
 
@@ -129,16 +130,11 @@ const controllers = {
 }
 
 class Controllers {
-  midi = undefined;
 
-  send(state, parameter) {
-    if (this.midi === undefined)  {
-      console.log("MIDI unavailable");
-    }
-    
+  send(state, parameter) {    
     const id = parameter.id;
     if (!id || !controllers[id]) return;
-    controllers[id].send(this.midi, state, parameter).catch(err => console.log(err));
+    controllers[id].send(state, parameter);
   }
 }
 

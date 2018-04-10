@@ -20,20 +20,46 @@ const toHex = (n) => {
   return s.substring(s.length - 2);    
 };
 
-export class MIDI {
+class MIDI {
   inputChannel = undefined;
   outputChannel = 0;
   activeSensing = false;
   
-  constructor(midiAccess) {
-    this.midiAccess = midiAccess;
+  constructor() {
+    this.midiAccess = undefined;
     this.handleStateChange = this.handleStateChange.bind(this);
     this.handleInputMessage = this.handleInputMessage.bind(this);
-    this.midiAccess.onstatechange = this.handleStateChange;
     this.channelMessageHandlers = [];
     this.systemMessageHandlers = [];
+  }
+
+  setMidiAccess(midiAccess) {
+    this.midiAccess = midiAccess;
+    midiAccess.onstatechange = this.handleStateChange;
     this.updateInputs(midiAccess.inputs);
     this.updateOutputs(midiAccess.outputs);
+  }
+
+  addSystemMessageHandler(handler) {
+    if (this.systemMessageHandlers.indexOf(handler) >= 0) return;
+    this.systemMessageHandlers.push(handler);
+  }
+
+  removeSystemMessageHandler(handler) {
+    const i = this.systemMessageHandlers.indexOf(handler);
+    if (i < 0) return;
+    this.systemMessageHandlers.splice(i, 1);
+  }
+  
+  addChannelMessageHandler(handler) {
+    if (this.channelMessageHandlers.indexOf(handler) >= 0) return;
+    this.channelMessageHandlers.push(handler);
+  }
+
+  removeChannelMessageHandler(handler) {
+    const i = this.channelMessageHandlers.indexOf(handler);
+    if (i < 0) return;
+    this.channelMessageHandlers.splice(i, 1);
   }
 
   handleStateChange(event) {
@@ -93,20 +119,27 @@ export class MIDI {
   }
   
   send(message) {
-    if (this.selectedOutput === undefined) {
-      throw new Error("no MIDI output is available");
+    if (this.selectedOutput !== undefined) {
+      this.selectedOutput.send(message);
     }
-    this.selectedOutput.send(message);
-    console.log(`sent ${toHex(message)}`);    
+    
+    const status = this.selectedOutput !== undefined ? "sent" : "dropped";
+    console.log(`${status} ${toHex(message)}`);    
   }
 
-  async controlChange(controller, parameter) {
+  controlChange(controller, parameter) {
     const status = this.createChannelStatus(0xb0);
     const message = [ status, controller & 0x7f, parameter & 0x7f ];
     this.send(message);
   }
 
-  async systemExclusive(manufacturerId, payload) {
+  programChange(program) {
+    const status = this.createChannelStatus(0xc0);
+    const message = [ status, program & 0x7f ];
+    this.send(message);
+  }
+
+  systemExclusive(manufacturerId, payload) {
     const message = [ SYSEX_STATUS ];
     if (Array.isArray(manufacturerId)) {
       message.push(...[...manufacturerId].map(b => b & 0x7f));
@@ -125,14 +158,15 @@ export class MIDI {
     this.send(message);
   }
 
-  static async open(options) {
+  async open(options) {
     if (!navigator.requestMIDIAccess) {
       throw new Error("MIDI unavailable in this browser");
     }
     const midiAccess = await navigator.requestMIDIAccess(options);
     console.log("MIDI access successful");
-    return new MIDI(midiAccess);
+    this.setMidiAccess(midiAccess);
   }
 
 }
 
+export default new MIDI();
