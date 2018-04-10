@@ -175,6 +175,11 @@ export const initPatchData = (number) => {
   });
 
   patch[0] = number;
+  patch[1] = GLIGLI_MAGIC & 0xff;
+  patch[2] = (GLIGLI_MAGIC>>8) & 0xff;
+  patch[3] = (GLIGLI_MAGIC>>16) & 0xff;
+  patch[4] = (GLIGLI_MAGIC>>24) & 0xff;
+  patch[5] = SUPPORTED_VERSION;
   return Uint8Array.from(patch);
 };
 
