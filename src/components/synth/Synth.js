@@ -11,6 +11,8 @@ import Filter from "./Filter";
 import FilterEnvelope from "./FilterEnvelope";
 import Amplifier from "./Amplifier";
 import Performance from "./Performance";
+import PatchControl from "./PatchControl";
+
 import P600Logo from "./P600Logo";
 import SCILogo from "./SCILogo";
 
@@ -32,6 +34,7 @@ export default ({ onMouseMove, onMouseUp, onMouseLeave }) => (
       <FilterEnvelope/>
       <Amplifier/>
       <Performance/>
+      <PatchControl/>
     </div>
     <div className="logos">
       <SCILogo/>

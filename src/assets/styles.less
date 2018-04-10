@@ -10,8 +10,7 @@
 
 @color-dseg-on: rgb(200, 0, 0);
 @color-dseg-off: rgba(200, 0, 0, 0.3);
-@color-dseg-glass: rgba(0, 0, 0, 0);
-
+@color-dseg-box: rgb(0, 0, 0);
 @color-knob-outer-fill-stop0: rgb(40, 40, 40);
 @color-knob-outer-fill-stop1: rgb(70, 70, 70);
 @color-knob-inner-fill-stop0: rgb(20, 20, 20);
@@ -20,6 +19,7 @@
 @color-knob-face-fill: rgb(50, 45, 45);
 @color-knob-face-stroke: black;
 @color-knob-pointer-fill: rgb(210, 200, 200);
+@color-knob-glass: rgba(0, 0, 0, 0);
 
 @color-toggle-side-fill: rgb(22, 22, 22);
 @color-toggle-side-stroke: rgb(47, 47, 47);
@@ -134,14 +134,16 @@
     stroke: none;
     fill: @color-dseg-on;
     user-select: none;
-
   }
-  
   
   .display-selector {
     font-family: dseg14-classic-mini;
   }
   
+  .display.display-box {
+    fill: @color-dseg-box;
+  }
+
   .display.display-bg {
     fill: @color-dseg-off;
   }
@@ -151,7 +153,7 @@
   }
 
   .glass {
-    fill: @color-dseg-glass;
+    fill: @color-knob-glass;
     stroke: none;
   }
 }
@@ -191,6 +193,25 @@
     fill: url(#g-toggle-led-glint);
     stroke: none;        
   }
+}
+
+.two-digit-display {
+  width: 100px;
+  font-size: 70px;
+  font-family: dseg7-classic;
+  font-style: oblique;
+  .display-box {
+    fill: @color-dseg-box;
+    stroke: none;
+  }
+  .dseg-fg {
+    fill: @color-dseg-on;
+    stroke: none;
+  }  
+  .dseg-bg {
+    fill: @color-dseg-off;
+    stroke: none;
+  }  
 }
 
 html {
@@ -493,3 +514,12 @@ input[type="range"] {
   }
 }
 
+#patch-control {
+  height: 130px;
+  width: 600px;
+  grid-row: 9;
+  grid-column: 1 / span 6;
+  display: grid;
+  grid-template-columns: repeat(6, 100px);
+  grid-template-rows: 40px 4f 1f;
+}
