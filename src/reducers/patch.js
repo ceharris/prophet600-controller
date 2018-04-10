@@ -13,7 +13,7 @@ const defaultState = {
 
 const reduceSelectionSet = (state, payload) => ({ 
   ...state, 
-  selected: payload.selected 
+  selected: payload.selection,
 });
 
 const reduceSelectionIncr = (state, payload) => ({
